@@ -1,0 +1,4 @@
+#Thu Mar 22 19:34:22 CDT 2018
+base.0=/home/walker/Documents/HeatPipePerformanceCalculator/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

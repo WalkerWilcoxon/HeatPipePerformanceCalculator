@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/walker/Documents/HeatPipePerformanceCalculator/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v22/values-v22.xml",
+            "map": [
+                {
+                    "source": "/home/walker/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/d10eb1b5307ffe2e27c7d61a0589ce66/res/values-v22/values-v22.xml",
+                    "from": {
+                        "startLines": "2,3,4,9",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,553",
+                        "endLines": "2,3,8,13",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,548,896"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/walker/Documents/HeatPipePerformanceCalculator/F:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v22\\values-v22.xml",
+            "map": [
+                {
+                    "source": "/home/walker/Documents/HeatPipePerformanceCalculator/C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.3.1.aar\\e79eb4a0743c1b4d4c76d7f9e15a3c02\\res\\values-v22\\values-v22.xml",
+                    "from": {
+                        "startLines": "2,3,4,9",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,553",
+                        "endLines": "2,3,8,13",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,548,896"
+                    }
+                }
+            ]
+        }
+    ]
+}

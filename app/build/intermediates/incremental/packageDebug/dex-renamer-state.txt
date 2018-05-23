@@ -1,0 +1,4 @@
+#Wed Sep 27 17:44:56 CDT 2017
+base.0=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\jack\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\jack\\debug\\folders\\1000\\1f\\main\\classes.dex
