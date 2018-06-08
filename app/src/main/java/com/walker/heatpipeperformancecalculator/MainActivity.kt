@@ -1,20 +1,19 @@
 package com.walker.heatpipeperformancecalculator
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.InputType
 import android.util.Log
-import android.view.*
-import android.widget.EditText
+import android.view.View
+import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
-import com.walker.heatpipeperformancecalculator.R.id.*
 import com.walker.heatpipeperformancecalculator.R.layout.main
 import kotlinx.android.synthetic.main.main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     companion object {
         var sigFigs = 3
@@ -25,16 +24,6 @@ class MainActivity : AppCompatActivity() {
     var forceUnit = "N"
     var massUnit = "kg"
     var pressureUnit = "Pa"
-    var tempUnitMetric = tempUnit
-    var lengthUnitMetric = lengthUnit
-    var forceUnitMetric = forceUnit
-    var massUnitMetric = massUnit
-    var pressureUnitMetric = "Pa"
-    var tempUnitImperial = "F"
-    var lengthUnitImperial = "in"
-    var forceUnitImperial = "lbf"
-    var massUnitImperial = "lbm"
-    var pressureUnitImperial = "psi"
 
     var metric = true
 
@@ -103,8 +92,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(main)
-        setSupportActionBar(toolbar)
-        layout = inputOutputLayout
+        layout = gridLayout
 
         NumberField.updater = { n_hp() }
 
@@ -119,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         L_cond = InputField("Condenser Length", "m", 0.06, false)
         D = InputField("Heat Pipe Diameter", "m", 0.006, false)
         P = InputField("Input Power", "W", 10.0, false)
-        axial_R = OuputField("Axial Resistance", "C/W", true) {0.000001}
+        axial_R = OuputField("Axial Resistance", "C/W", true) { 0.000001 }
         k_copper = OuputField("Copper Conductivity", "W/m/C", true) { 380.0 }
         g = OuputField("Gravitational Acceleration", " m/s^2 ", false) { 9.81 }
         Poros = OuputField("Porosity", " % ", true) { 0.52 }
@@ -135,11 +123,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         circ_R = OuputField("Circumferential Resistance", "C/W", true) { R_cont() + (t_wall() + t_wick() / Poros()) / k_copper() }
-        r_vap = OuputField("Radius of Vapor Space", "m",  false) { (D() - 2 * t_wall() - 2 * t_wick()) / 2.0 }
+        r_vap = OuputField("Radius of Vapor Space", "m", false) { (D() - 2 * t_wall() - 2 * t_wick()) / 2.0 }
         A_wick = OuputField("Cross Sectional Area", "m^2 ", false) { Math.PI * (Math.pow(0.5 * D() - t_wall(), 2.0) - Math.pow(r_vap(), 2.0)) }
         L_a = OuputField("Adiabatic Length", "m", false) { L_tot() - L_evap() - L_cond() }
-        Leff = OuputField("Effective Length", "m",false) { L_a() + (L_evap() + L_cond()) / 2.0 }
-        R_c = OuputField("Contact Resistance", "C/W",true) { R_cVals[Powder]!! }
+        Leff = OuputField("Effective Length", "m", false) { L_a() + (L_evap() + L_cond()) / 2.0 }
+        R_c = OuputField("Contact Resistance", "C/W", true) { R_cVals[Powder]!! }
         Perm = OuputField("Permeability", "m", false) { PermVals[Powder]!! }
         R_cond = OuputField("Conduction Resistance", "C/W", true) { Leff() / k_copper() / (Math.PI / 4 * (D() * D() - r_vap() * r_vap())) }
         P_vap = OuputField("Vapor Pressure", " kg/m^3 ", false) { Math.pow(10.0, 8.07131 - 1730.63 / (233.426 + T())) * 133.322 }
@@ -318,10 +306,6 @@ class MainActivity : AppCompatActivity() {
     fun changeTempUnit(newTempUnit: String) {
         changeUnit(tempUnit, newTempUnit)
         tempUnit = newTempUnit
-        if (metric)
-            tempUnitMetric = newTempUnit
-        else
-            tempUnitImperial = newTempUnit
     }
 
     fun changeLengthUnit(v: View) {
@@ -332,11 +316,6 @@ class MainActivity : AppCompatActivity() {
         changeUnit(lengthUnit, newLengthUnit)
 
         lengthUnit = newLengthUnit
-
-        if (metric)
-            lengthUnitMetric = newLengthUnit
-        else
-            lengthUnitImperial = newLengthUnit
     }
 
     fun changeMassUnit(v: View) {
@@ -347,11 +326,6 @@ class MainActivity : AppCompatActivity() {
         changeUnit(massUnit, newMassUnit)
 
         massUnit = newMassUnit
-
-        if (metric)
-            massUnitMetric = newMassUnit
-        else
-            massUnitImperial = newMassUnit
     }
 
     fun changeForceUnit(newForceUnit: String) {
@@ -362,42 +336,6 @@ class MainActivity : AppCompatActivity() {
     fun changePressureUnit(newPressureUnit: String) {
         changeUnit(pressureUnit, newPressureUnit)
         pressureUnit = newPressureUnit
-    }
-
-    fun toImperial(v: View) {
-        if (metric) {
-            metric = false
-            changeTempUnit(tempUnitImperial)
-            changeLengthUnit(lengthUnitImperial)
-            changeMassUnit(massUnitImperial)
-            changeForceUnit(forceUnitImperial)
-            changePressureUnit(pressureUnitImperial)
-            tempUnit = tempUnitImperial
-            lengthUnit = lengthUnitImperial
-            massUnit = massUnitImperial
-            forceUnit = forceUnitImperial
-            pressureUnit = pressureUnitImperial
-            imperialUnits.visibility = View.VISIBLE
-            metricUnits.visibility = View.GONE
-        }
-    }
-
-    fun toMetric(v: View) {
-        if (!metric) {
-            metric = true
-            changeTempUnit(tempUnitMetric)
-            changeLengthUnit(lengthUnitMetric)
-            changeMassUnit(massUnitMetric)
-            changeForceUnit(forceUnitMetric)
-            changePressureUnit(pressureUnitMetric)
-            tempUnit = tempUnitMetric
-            lengthUnit = lengthUnitMetric
-            massUnit = massUnitMetric
-            forceUnit = forceUnitMetric
-            pressureUnit = pressureUnitMetric
-            imperialUnits.visibility = View.GONE
-            metricUnits.visibility = View.VISIBLE
-        }
     }
 
     fun changeUnit(oldUnit: String, newUnit: String) {

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/walker/Documents/HeatPipePerformanceCalculator/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ca/values-ca.xml",
+            "outputFile": "C:\\Users\\Walker\\StudioProjects\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ca\\values-ca.xml",
             "map": [
                 {
-                    "source": "/home/walker/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.4.0.aar/a4ddb9ee683fea81e1c1c3c184537b8d/res/values-ca/values-ca.xml",
+                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.4.0.aar\\552cd4498eed0c523aa627bdaecd787e\\res\\values-ca\\values-ca.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
