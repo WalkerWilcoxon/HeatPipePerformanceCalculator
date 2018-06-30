@@ -1,169 +1,169 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\53a03d0d5a0bd773dd826839934557de\AndroidManifest.xml:2:1-14:12
-MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\af556d085b84daf3cf5b4f114d996025\AndroidManifest.xml:2:1-11:12
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:17:1-31:12
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:17:1-31:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\2e41f1b2b9ed42ba9bd78e79bbbf7e4f\AndroidManifest.xml:2:1-14:12
+MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\3c09e25d00947c91f1ad5ab0c5e53ca2\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:17:1-31:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
 	package
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:3:5-55
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:3:5-55
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:1-24:12
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:5:5-22:19
-MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\53a03d0d5a0bd773dd826839934557de\AndroidManifest.xml:11:5-12:19
-MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\53a03d0d5a0bd773dd826839934557de\AndroidManifest.xml:11:5-12:19
-MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\af556d085b84daf3cf5b4f114d996025\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\af556d085b84daf3cf5b4f114d996025\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:25:5-29:19
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:5:5-22:19
+MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\2e41f1b2b9ed42ba9bd78e79bbbf7e4f\AndroidManifest.xml:11:5-12:19
+MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\2e41f1b2b9ed42ba9bd78e79bbbf7e4f\AndroidManifest.xml:11:5-12:19
+MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\3c09e25d00947c91f1ad5ab0c5e53ca2\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\3c09e25d00947c91f1ad5ab0c5e53ca2\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:25:5-29:19
 	android:supportsRtl
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:10:9-35
 	android:label
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:8:9-41
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:8:9-41
 	android:roundIcon
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:9:9-54
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:9:9-54
 	android:icon
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:7:9-43
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:7:9-43
 	android:allowBackup
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:6:9-35
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:6:9-35
 	android:theme
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:11:9-40
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:11:9-40
 activity#com.walker.heatpipeperformancecalculator.MainActivity
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:12:9-21:20
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:12:9-21:20
 	android:label
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:14:13-45
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:14:13-45
 	android:theme
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:15:13-56
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:15:13-56
 	android:name
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:13:13-41
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:13:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:16:13-20:29
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:17:17-69
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:17:17-69
 	android:name
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:17:25-66
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:17:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:19:17-77
+ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:19:17-77
 	android:name
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:19:27-74
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml:19:27-74
 uses-sdk
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\53a03d0d5a0bd773dd826839934557de\AndroidManifest.xml:7:5-9:41
-MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\53a03d0d5a0bd773dd826839934557de\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:21:5-23:62
-MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:21:5-23:62
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\af556d085b84daf3cf5b4f114d996025\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\af556d085b84daf3cf5b4f114d996025\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:21:5-23:58
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\2e41f1b2b9ed42ba9bd78e79bbbf7e4f\AndroidManifest.xml:7:5-9:41
+MERGED from [com.jjoe64:graphview:4.2.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\graphview-4.2.0.aar\2e41f1b2b9ed42ba9bd78e79bbbf7e4f\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\3c09e25d00947c91f1ad5ab0c5e53ca2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\3c09e25d00947c91f1ad5ab0c5e53ca2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:21:5-23:58
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:23:9-59
+		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:23:9-59
 	android:targetSdkVersion
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Walker\StudioProjects\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		ADDED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
+		INJECTED from F:\.Important\AndroidStudio\Apps\HeatPipePerformanceCalculator\app\src\main\AndroidManifest.xml
 meta-data#android.support.VERSION
-ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\0d5d771e9da5da9ab31bab712139d266\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\5a3e85c3d8b1619035fdedba7d7aabac\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\8fbaf29d61a4173878ec072e208fefd6\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\e082b979122e611f70782e008f893855\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\dd87363a9ae5e3bd73537f8ed1878f91\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\7ce06dbf6c66248a6e33ce99208ca93b\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\bb890b92b68e73e856c61297d711cbcd\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8050006d27a503ede6b38cf9e4f6e12d\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\109f74a052352be37abebb0ccfcf5856\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\9ad4d325464076d529165ad7dbdfac88\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\4c90d7ae9931daeb49b8fd895b47074c\AndroidManifest.xml:26:9-28:38
+ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.4.0.aar\68ec29e55538bd79c3f610aa3c5d67c4\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:transition:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\transition-25.4.0.aar\dad3053020df2563d6ab798b9e0173d4\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-v4:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-v4-25.4.0.aar\ca17fc6609029390ead34df3478a7313\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:animated-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.4.0.aar\0d479c746a0961f2618470346a1d6435\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.4.0.aar\0b45a5178462d9acf5d49bae123ad672\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.4.0.aar\b3a9a23e3232dceb44442d6b41b4908c\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-fragment-25.4.0.aar\a0e268e2cf74d5b1579478c572d90e6d\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.4.0.aar\8cdda9cd6fefded047b023b1ca1a6180\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.4.0.aar\b5eafc3d8666a607342b83705fa6596f\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.4.0.aar\3cfc8e8eea0520e9c0517cbed807126e\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\support-compat-25.4.0.aar\c9063367d7fe512be658be2842c07fac\AndroidManifest.xml:26:9-28:38
 	android:value
-		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:28:13-35
+		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:28:13-35
 	android:name
-		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\29bf86f2d1fd91496dd5d413d9d568d8\AndroidManifest.xml:27:13-51
+		ADDED from [com.android.support:design:25.4.0] C:\Users\Walker\.gradle\caches\transforms-1\files-1.1\design-25.4.0.aar\896d0d1df25fc010b5c64a22d9e19652\AndroidManifest.xml:27:13-51
