@@ -4,182 +4,173 @@ import android.content.Context
 import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
-import android.text.Selection
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.GridLayout
-import android.widget.TextView
-import com.walker.heatpipeperformancecalculator.Field.Companion.updateOutputs
+import android.widget.*
 import java.math.BigDecimal
 import java.math.MathContext
+import kotlin.collections.ArrayList
 
 /**
  * Created by walker on 3/16/18.
  */
 
-
-interface Field {
-    fun addToLayout(layout: GridLayout, row: Int)
-    fun toggleVisibility()
+abstract class Field {
     companion object {
         var updateOutputs: () -> Unit = {}
         var getContext: () -> Context = { throw ExceptionInInitializerError("Context is not initialized yet") }
+        val fields: MutableList<Field> = ArrayList()
     }
 
     val context: Context get() = getContext()
-}
 
-abstract class NumberField(val name: String, val numberUnits: String, val staticUnits: Boolean) : Field {
-    open var number: Double = 0.0
-
-    var convertedNumber: Double
-        get() = numberConverter.convert(number, textConverter)
-        set(value) {
-            number = textConverter.convert(value, numberConverter)
-        }
-
-    val numberConverter = UnitConverter(numberUnits)
-
-    var textUnits = numberUnits
-        set(value) {
-            field = value
-            nameText.text = name + " (" + value + ")"
-            textConverter = UnitConverter(value)
-        }
-
-    var textConverter = UnitConverter(textUnits)
-
-    abstract val numberText: TextView
-
-    val nameText = TextView(context)
+    val nameText = TextView(context);
+    abstract val fieldView: View
 
     init {
-        nameText.textSize = 15f
-        nameText.setTextColor(Color.BLACK)
-        nameText.text = name + " (" + textUnits + ")"
+        fields.add(this)
     }
 
-    override fun toggleVisibility() {
-        numberText.visibility = if (numberText.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-        nameText.visibility = if (numberText.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    fun toggleVisibility() {
+        nameText.toggleVisibility()
+        fieldView.toggleVisibility()
     }
 
-    override fun addToLayout(layout: GridLayout, row: Int) {
+    fun addToGrid(grid: GridLayout, row: Int) {
         var params = GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(0))
         params.marginStart = 50
         nameText.layoutParams = params
         params = GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(1))
         params.marginStart = 75
-        numberText.layoutParams = params
-        layout.addView(nameText)
-        layout.addView(numberText)
+        fieldView.layoutParams = params
+        grid.addView(nameText)
+        grid.addView(fieldView)
     }
+}
+
+abstract class NumberField(val name: String, numberUnits: String, val staticUnits: Boolean) : Field() {
+    abstract var number: Double
+    val convertedNumber get() = number.convertTo(numberConverter, textConverter).format()
+
+    val numberTextString: String
+        get() = numberText.text.toString()
+
+    var textUnits = numberUnits
+
+    val numberConverter = UnitConverter(numberUnits)
+    val textConverter = UnitConverter(textUnits)
+
+    init {
+        updateNameText()
+    }
+
+    abstract val numberText: TextView
+    override val fieldView: View get() = numberText
 
     fun changeUnit(oldUnit: String, newUnit: String) {
         if (!staticUnits) {
             textConverter.changeUnit(oldUnit, newUnit)
+            textUnits = textUnits.replace(oldUnit, newUnit)
             updateNumberText()
+            updateNameText()
         }
     }
 
     fun updateNumberText() {
-        numberText.text = format(convertedNumber)
+        numberText.text = convertedNumber
     }
 
-    abstract fun format(number: Double): String
+    fun updateNameText() {
+        nameText.text = name + if (textUnits != "") " ($textUnits)" else ""
+    }
+
+    abstract fun Double.format(): String
 }
 
-class InputField(name: String, numberUnits: String, initialValue: Double, staticUnits: Boolean) : NumberField(name, numberUnits, staticUnits) {
-    override var number: Double
-        get() = super.number
-        set(value) {
-            super.number = value
-            updateOutputs()
-        }
+class InputNumberField(name: String, numberUnits: String, val initialValue: Double, staticUnits: Boolean) : NumberField(name, numberUnits, staticUnits) {
+    override var number: Double = initialValue
 
     override val numberText: TextView = EditText(context)
 
     init {
-        super.number = initialValue
         numberText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         numberText.text = initialValue.toString()
         numberText.textSize = 15f
         numberText.setTextColor(Color.BLACK)
-        numberText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(text: Editable?) {
-                if (text.toString() != format(convertedNumber)) {
-                    val editText = numberText as EditText
-                    val index = Selection.getSelectionStart(editText.text)
-                    try {
-                        convertedNumber = text.toString().toDouble()
-                    } catch (e: NumberFormatException) {
-                        "Please Enter a number".toast(context)
-                        return
-                    }
-                    if (name == "Heat Pipe Diameter") {
-                        val diameter_in_mm = number * 1000
-                        if (diameter_in_mm < 3)
-                            number = 3.0
-                        if (diameter_in_mm > 9)
-                            number = 10.0
-                        if (diameter_in_mm.between(6, 7))
-                            number = 6.0
-                        if (diameter_in_mm.between(7, 9))
-                            number = 8.0
-                    }
-                }
-            }
-        })
-        numberText.onFocusChangeListener = View.OnFocusChangeListener {view, hasFocus ->
-            if(!hasFocus) {
-                updateNumberText()
-            }
+        numberText.addTextChangedListener(makeTextWatcher())
+        numberText.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            updateNumberText()
         }
+        updateNumberText()
     }
 
-    override fun format(number: Double): String {
-        return BigDecimal(number).round(MathContext(10)).toPlainString()
+    override fun Double.format(): String {
+        return BigDecimal(this).round(MathContext(3)).toPlainString()
     }
 
     operator fun invoke() = number
+
+    fun makeTextWatcher(): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(text: Editable?) {
+                if (number != initialValue) {
+                    number = numberTextString.toDouble().convertTo(textConverter, numberConverter)
+                    updateOutputs()
+                }
+            }
+        }
+    }
 }
 
 
-
-abstract class OutputField(name: String, numberUnits: String, staticUnits: Boolean, val forumla: () -> Double) : NumberField(name, numberUnits, staticUnits) {
-    final override val numberText = TextView(context)
+class OutputNumberField(name: String, numberUnits: String, staticUnits: Boolean, val important: Boolean = false, val forumla: () -> Double) : NumberField(name, numberUnits, staticUnits) {
+    override var number: Double = forumla()
+    override val numberText = TextView(context)
 
     init {
+//        if(!important)
+//            toggleVisibility()
         numberText.textSize = 15f
         numberText.setTextColor(Color.BLACK)
-        numberText.setPadding(50, 20, 0, 20)
+        updateNumberText()
     }
 
-    override fun format(number: Double): String {
+    override fun Double.format(): String {
         try {
             return BigDecimal(number).round(MathContext(MainActivity.sigFigs)).toEngineeringString()
         } catch (e: Exception) {
-            Log.i("AppTag", "Number:$number Name:$name")
-            return "0"
+            "Number:$number Name:$name $e".toast(context)
+            Log.i("AppTag", e.toString())
+            if(number.isNaN())
+                Log.i("AppTag", "NaN")
+            else
+                Log.i("AppTag", "Inf")
+            return "-1"
         }
     }
 
     operator fun invoke(): Double {
         number = forumla()
+        updateNumberText()
         return number
     }
 }
 
-class ConstantField(name: String, numberUnits: String, staticUnits: Boolean, constant: Double) : OutputField(name, numberUnits, staticUnits, {constant})
+class MenuField(val name: String, vararg val items: String) : Field() {
+    val menu = Spinner(context, *items) { _, _, position: Int, _ ->
+        selected = items[position]
+    }
 
-class CalculatedField(name: String, numberUnits: String, staticUnits: Boolean, forumla: () -> Double) : OutputField(name, numberUnits, staticUnits, forumla)
+    init {
+        nameText.text = name;
+    }
 
-class ImportantCalculatedField(name: String, numberUnits: String, staticUnits: Boolean, forumla: () -> Double) : OutputField(name, numberUnits, staticUnits, forumla)
+    var selected = items[0]
 
-//class MenuField(val name: String, vararg items: String) : Field {
-//    val menu = Spinner(context)
-//}
+    override val fieldView: View get() = menu
+
+    operator fun invoke() = selected
+}

@@ -6,9 +6,6 @@ import kotlin.math.pow
 import kotlin.collections.MutableSet
 
 class UnitConverter(val units: String) {
-
-    var TAG = "myTAG"
-
     val unitsArray = ArrayList<Unit>()
 
     init {
@@ -29,7 +26,7 @@ class UnitConverter(val units: String) {
         }
     }
 
-    fun convert(number: Double, toConverter: UnitConverter): Double {
+    fun convertTo(number: Double, toConverter: UnitConverter): Double {
         if (unitsArray.size == 1 && unitsArray.first().unit.type() == Factors.UnitType.Temperature) return TemperatureConverter.convert(number, unitsArray.first().unit, toConverter.unitsArray.first().unit)
         val pairUnits = Array<Pair<Unit, Unit>>(unitsArray.size) {
             Pair(unitsArray[it], toConverter.unitsArray[it])
@@ -51,7 +48,6 @@ class UnitConverter(val units: String) {
         enum class UnitType {
             Length,
             Pressure,
-            Volume,
             Temperature,
             Mass,
             Force;

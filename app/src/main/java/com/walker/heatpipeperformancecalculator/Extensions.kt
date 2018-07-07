@@ -2,6 +2,7 @@ package com.walker.heatpipeperformancecalculator
 
 import android.content.Context
 import android.view.View
+import android.widget.GridLayout
 import android.widget.Toast
 
 /**
@@ -29,6 +30,7 @@ fun Double.signum(): Double = Math.signum(this)
 fun Double.clamp(min: Double, max: Double): Double = Math.max(min, Math.min(this, max))
 fun Double.between(min: Double, max: Double): Boolean = this > min && this < max
 fun Double.between(min: Int, max: Int): Boolean = this > min && this < max
+fun Double.convertTo(from: UnitConverter, to: UnitConverter) = from.convertTo(this, to)
 fun Any.toast(context: Context) {
     Toast.makeText(context, this.toString(), Toast.LENGTH_LONG).show()
 }
@@ -85,4 +87,8 @@ fun String.type(): UnitConverter.Factors.UnitType {
 
 fun View.toggleVisibility() {
     this.visibility = if(this.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+}
+
+fun GridLayout.add(view: View, row: Int, column: Int) {
+    this.addView(view, GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column)))
 }
