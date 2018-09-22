@@ -1,11 +1,12 @@
 package com.walker.heatpipeperformancecalculator
 
-import android.util.Log
 import java.util.HashMap
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
+import kotlin.collections.set
 import kotlin.math.pow
-import kotlin.collections.MutableSet
 
-class UnitConverter(val units: String) {
+class UnitConverter(var units: String) {
     val unitsArray = ArrayList<Unit>()
 
     init {
@@ -27,21 +28,28 @@ class UnitConverter(val units: String) {
     }
 
     fun convertTo(number: Double, toConverter: UnitConverter): Double {
-        if (unitsArray.size == 1 && unitsArray.first().unit.type() == Factors.UnitType.Temperature) return TemperatureConverter.convert(number, unitsArray.first().unit, toConverter.unitsArray.first().unit)
-        val pairUnits = Array<Pair<Unit, Unit>>(unitsArray.size) {
+        if (unitsArray.size == 1 && unitsArray.first().unit.unitType() == Factors.UnitType.Temperature) {
+            return TemperatureConverter.convert(number, unitsArray.first().unit, toConverter.unitsArray.first().unit)
+        }
+        val pairUnits = Array(unitsArray.size) {
             Pair(unitsArray[it], toConverter.unitsArray[it])
         }
-
-        return pairUnits.fold(number) { acc, unit -> unit.first.convert(acc, unit.second.unit) }
+        return pairUnits.fold(number) { acc, unit -> unit.first.convertTo(acc, unit.second.unit) }
     }
 
     fun changeUnit(oldUnit: String, newUnit: String) {
         val index = unitsArray.map { it.unit }.indexOf(oldUnit)
-        if (index != -1) unitsArray[index] = Unit(newUnit, unitsArray[index].power)
+        if(index != -1) {
+            unitsArray[index] = Unit(newUnit, unitsArray[index].power)
+            units = units.replace(oldUnit, newUnit)
+        }
     }
 
     data class Unit(val unit: String, val power: Int) {
-        fun convert(number: Double, toUnit: String) = number * Factors[unit, toUnit].pow(power)
+        fun convertTo(number: Double, toUnit: String) : Double {
+            val factor = Factors[unit, toUnit]
+            return number * factor.pow(power)
+        }
     }
 
     object Factors {
@@ -70,9 +78,9 @@ class UnitConverter(val units: String) {
                     BaseFactor("in", 39.3701),
                     BaseFactor("ft", 3.28084)
             )
-            addBaseFactors("C", UnitType.Temperature,
+            addBaseFactors("°C", UnitType.Temperature,
                     BaseFactor("K", 1.0),
-                    BaseFactor("F", 1.8),
+                    BaseFactor("°F", 1.8),
                     BaseFactor("R", 1.8)
             )
             addBaseFactors("kg", UnitType.Mass,
@@ -101,17 +109,15 @@ class UnitConverter(val units: String) {
         }
 
         fun addBaseFactor(baseFactor: BaseFactor, type: UnitType) {
-            factorsMap[type]
             factorsMap[type]!![baseFactor.toUnit] = baseFactor.factor
         }
 
         operator fun get(fromUnit: String, toUnit: String): Double {
-            val type = fromUnit.type()
+            val type = fromUnit.unitType()
+            if(type != toUnit.unitType()) throw Exception("Incompatible units")
             val baseUnit = type.baseUnit
             val factors = factorsMap[type]!!
-//            if(factors[toUnit] == null) Log.i("AppTag", "toUnit:$toUnit factors:$factors")
             return when {
-                type != toUnit.type() -> throw Exception("Incompatible units")
                 fromUnit == toUnit -> 1.0
                 fromUnit == baseUnit -> factors[toUnit]!!
                 toUnit == baseUnit -> 1 / factors[fromUnit]!!
@@ -129,20 +135,21 @@ class UnitConverter(val units: String) {
 
         init {
             addFormulas(
-                    BaseFormula("K", 1.0, 0.0),
-                    BaseFormula("F", 1.8, 32.0),
+                    BaseFormula("°C", 1.0, 0.0),
+                    BaseFormula("K", 1.0, 273.15),
+                    BaseFormula("°F", 1.8, 32.0),
                     BaseFormula("R", 1.8, 491.67)
             )
         }
 
         fun convert(number: Double, fromUnit: String, toUnit: String): Double {
-            val toFormula = formulas[toUnit]
-            val fromFormula = formulas[fromUnit]
+            val toFormula = formulas[toUnit]?: throw Exception("ToUnit: $toUnit")
+            val fromFormula = formulas[fromUnit]?: throw Exception("FromUnit: $fromUnit")
             return when {
                 fromUnit == toUnit -> number
-                fromUnit == baseUnit -> toFormula!!(number)
-                toUnit == baseUnit -> fromFormula!!(number)
-                else -> fromFormula!!.inverse(toFormula!!(number))
+                fromUnit == baseUnit -> toFormula(number)
+                toUnit == baseUnit -> fromFormula.inverse(number)
+                else -> fromFormula.inverse(toFormula(number))
             }
         }
 

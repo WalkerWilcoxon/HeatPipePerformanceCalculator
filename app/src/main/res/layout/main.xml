@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.walker.heatpipeperformancecalculator.MainActivity">
@@ -16,42 +16,228 @@
             android:id="@+id/celsiaLogo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/top_margin"
             android:contentDescription="Logo of Celsia Inc."
-            android:src="@drawable/celsia_logo"/>
+            android:src="@drawable/celsia_logo" />
+
         <ImageView
             android:id="@+id/heatPipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/top_margin"
             android:contentDescription="Picture of heat pipe"
             android:src="@drawable/heat_pipe"
             app:srcCompat="@drawable/heat_pipe" />
-        <GridLayout
-            android:id="@+id/gridLayout"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </GridLayout>
 
-        <Switch
-            android:id="@+id/optionsSwitch"
-            android:layout_gravity="center"
-            android:layout_marginTop="75dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="15sp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Show Options"
-            android:onClick="toggleOptions"/>
-        <CheckBox
-            android:id="@+id/propertiesCheckBox"
-            android:layout_marginLeft="50dp"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Show all heatpipe properties"
-            android:checked="true"
-            android:onClick="toggleCalculatedProperties"/>
+            android:layout_marginLeft="@dimen/left_margin"
+            android:layout_marginTop="@dimen/top_margin"
+            android:text="Inputs"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <GridLayout
+            android:id="@+id/inputGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin"
+            android:columnCount="2"
+            android:orientation="vertical"></GridLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/left_margin"
+            android:layout_marginTop="@dimen/top_margin"
+            android:text="Outputs"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <GridLayout
+            android:id="@+id/outputGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin"
+            android:columnCount="2"
+            android:orientation="vertical"></GridLayout>
+
+
+        <LinearLayout
+            android:id="@+id/graphLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/left_margin"
+                android:layout_marginTop="@dimen/top_margin"
+                android:text="Graph"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/left_margin"
+                    android:gravity="center_vertical"
+                    android:text="Input"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/inputSpinner"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"></Spinner>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Start"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/startRangeText"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:inputType="number|numberSigned|numberDecimal"
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    tools:text="0" />
+
+                <TextView
+                    android:id="@+id/startRangeUnits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="°C"
+                    android:textColor="@android:color/black"
+                    tools:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/left_margin"
+                    android:gravity="center_vertical"
+                    android:text="Output"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/outputSpinner"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"></Spinner>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="End"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/endRangeText"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:inputType="number|numberSigned|numberDecimal"
+                    android:text="100"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/endRangeUnits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="°C"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="@dimen/left_margin"
+                android:layout_marginTop="@dimen/top_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unitsLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/left_margin"
+                android:layout_marginTop="@dimen/top_margin"
+                android:text="Units"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <GridLayout
+                android:id="@+id/unitsGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkBoxes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/top_margin"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/showAllPropertiesCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:onClick="toggleUnimportantFields"
+                android:text="Show All Calculated Properties" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:onClick="toggleUnits"
+                android:text="Show Unit Converter" />
+
+            <CheckBox
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:onClick="toggleGraph"
+                android:text="Show Graph" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
