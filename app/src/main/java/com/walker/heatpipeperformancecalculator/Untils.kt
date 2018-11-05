@@ -1,27 +1,27 @@
 package com.walker.heatpipeperformancecalculator
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
+import com.walker.heatpipeperformancecalculator.Globals.formatter
+import com.walker.heatpipeperformancecalculator.Globals.mathContext
+import java.math.BigDecimal
+import java.math.MathContext
+import java.text.DecimalFormat
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.reflect.KProperty
 
 object Globals {
-    val smallSpinnerText = R.layout.spinner_text_small
-    val wrapSpinnerText = R.layout.spinner_text_wrap
     val sigFigs = 3
+    val mathContext = MathContext(sigFigs)
+    val formatter = DecimalFormat("0.##E0")
+
 }
-
-fun Double.convertTo(from: UnitConverter, to: UnitConverter) = from.convertTo(this, to)
-
-fun Int.dpToPx() = this * Resources.getSystem().displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
-
 
 fun Any.toast(context: Context) {
     Toast.makeText(context, this.toString(), Toast.LENGTH_LONG).show()
@@ -40,24 +40,29 @@ fun Any.Log(tag: Tags) {
 
 fun Double.clamp(min: Double, max: Double) = min(max, max(min, this))
 
-fun String.unitType(): UnitConverter.Factors.UnitType {
-    UnitConverter.Factors.units.forEach {
-        if (this in it.value)
-            return it.key
-    }
-    throw NoSuchElementException("Unit type of $this could not be determined")
-}
-
 fun String.baseUnitName(): String {
     return UnitConverter.Factors.baseUnits[UnitConverter.Factors.UnitType.valueOf(this)]!!
 }
 
+fun Double.toRoundedString(): String = toRoundedBigDecimal().toPlainString()
+
+fun Double.toRoundedBigDecimal(): BigDecimal = BigDecimal(this).round(mathContext).stripTrailingZeros()
+
+fun Double.toFormattedString(): String {
+    val num = toRoundedBigDecimal()
+    return if (abs(num.scale()) >= 3) {
+        formatter.format(this)
+    } else {
+        num.toPlainString()
+    }
+}
+
 fun View.toggleVisibility() {
-    this.visibility = if (this.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
 }
 
 fun GridLayout.add(view: View, row: Int, column: Int) {
-    this.addView(view, GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column)))
+    addView(view, GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column)))
 }
 
 fun <T> Spinner.init(items: Array<T>, spinnerText: Int, itemSelected: (view: View?, position: Int) -> Unit) {
@@ -77,7 +82,7 @@ fun <T> Spinner.init(items: Array<T>, spinnerText: Int, itemSelected: (view: Vie
 
 fun <T> createSpinner(context: Context, vararg items: T, itemSelected: (view: View?, position: Int) -> Unit): Spinner {
     val spinner = Spinner(context)
-    spinner.init(items, Globals.wrapSpinnerText, itemSelected)
+    spinner.init(items, R.layout.text_view_wrap, itemSelected)
     return spinner
 }
 

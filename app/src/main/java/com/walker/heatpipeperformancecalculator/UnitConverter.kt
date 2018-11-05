@@ -1,56 +1,77 @@
 package com.walker.heatpipeperformancecalculator
 
 import java.util.HashMap
+import kotlin.NoSuchElementException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 import kotlin.collections.set
 import kotlin.math.pow
 
-class UnitConverter(var units: String) {
-    val unitsArray = ArrayList<Unit>()
+private fun String.unitType(): UnitConverter.Factors.UnitType {
+    UnitConverter.Factors.units.forEach {
+        if (this in it.value)
+            return it.key
+    }
+    throw NoSuchElementException("Unit type of $this could not be determined")
+}
+
+class UnitConverter(val baseUnits: String) {
+    private val baseUnitsArray = ArrayList<Unit>()
+    var convertedUnits = baseUnits
+    private val convertedUnitsArray = ArrayList<Unit>()
 
     init {
-        val splitUnits = units.split('*', '/')
-        splitUnits.forEachIndexed { index, unit ->
-            if (unit in Factors.allUnits) {
-                val unitIndex = units.indexOf(unit)
-                var power: Int
-                if (unitIndex == 0)
-                    power = 1
-                else
-                    power = if (units[unitIndex - 1] == '/') -1 else 1
-                if ("^" in unit) {
-                    power *= unit[unit.indexOf("^") + 1].toInt()
+        val splitUnits = baseUnits.split('*', '/')
+        splitUnits.forEachIndexed { index, unitStr ->
+            if (unitStr in Factors.allUnits) {
+                
+                val unitIndex = baseUnits.indexOf(unitStr)
+                var power: Int = when {
+                    unitIndex == 0 -> 1
+                    baseUnits[unitIndex - 1] == '/' -> -1
+                    else -> 1
                 }
-                unitsArray.add(Unit(unit, power))
+                if ("^" in unitStr) {
+                    power *= unitStr[unitStr.indexOf("^") + 1].toInt()
+                }
+                val unit = Unit(unitStr, power)
+                baseUnitsArray += unit
+                convertedUnitsArray += unit
             }
         }
     }
 
-    fun convertTo(number: Double, toConverter: UnitConverter): Double {
-        if (unitsArray.size == 1 && unitsArray.first().unit.unitType() == Factors.UnitType.Temperature) {
-            return TemperatureConverter.convert(number, unitsArray.first().unit, toConverter.unitsArray.first().unit)
-        }
-        val pairUnits = Array(unitsArray.size) {
-            Pair(unitsArray[it], toConverter.unitsArray[it])
-        }
-        return pairUnits.fold(number) { acc, unit -> unit.first.convertTo(acc, unit.second.unit) }
-    }
+    private val numUnits = baseUnitsArray.size
 
     fun changeUnit(oldUnit: String, newUnit: String) {
-        val index = unitsArray.map { it.unit }.indexOf(oldUnit)
-        if(index != -1) {
-            unitsArray[index] = Unit(newUnit, unitsArray[index].power)
-            units = units.replace(oldUnit, newUnit)
+        val index = baseUnitsArray.map { it.str }.indexOf(oldUnit)
+        if (index != -1) {
+            convertedUnitsArray[index] = Unit(newUnit, convertedUnitsArray[index].power)
+            convertedUnits = convertedUnits.replace(oldUnit, newUnit)
         }
     }
 
-    data class Unit(val unit: String, val power: Int) {
-        fun convertTo(number: Double, toUnit: String) : Double {
-            val factor = Factors[unit, toUnit]
+    fun convertTo(number: Double): Double = convert(number, baseUnitsArray, convertedUnitsArray)
+
+    fun convertFrom(number: Double): Double = convert(number, convertedUnitsArray, baseUnitsArray)
+
+    fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>): Double {
+        if (numUnits == 1 && toUnits.first().type == Factors.UnitType.Temperature) {
+            return TemperatureConverter.convert(number, toUnits.first().str, fromUnits.first().str)
+        }
+        return (0 until numUnits).fold(number) { acc, i -> toUnits[i].convertTo(acc, fromUnits[i].str)}
+    }
+
+    data class Unit(val str: String, val power: Int) {
+        fun convertTo(number: Double, toUnit: String): Double {
+            val factor = Factors[str, toUnit]
             return number * factor.pow(power)
         }
+
+        val type = str.unitType()
     }
+
+
 
     object Factors {
         enum class UnitType {
@@ -114,7 +135,7 @@ class UnitConverter(var units: String) {
 
         operator fun get(fromUnit: String, toUnit: String): Double {
             val type = fromUnit.unitType()
-            if(type != toUnit.unitType()) throw Exception("Incompatible units")
+            if (type != toUnit.unitType()) throw Exception("Incompatible units")
             val baseUnit = type.baseUnit
             val factors = factorsMap[type]!!
             return when {
@@ -143,8 +164,8 @@ class UnitConverter(var units: String) {
         }
 
         fun convert(number: Double, fromUnit: String, toUnit: String): Double {
-            val toFormula = formulas[toUnit]?: throw Exception("ToUnit: $toUnit")
-            val fromFormula = formulas[fromUnit]?: throw Exception("FromUnit: $fromUnit")
+            val toFormula = formulas[toUnit] ?: throw Exception("ToUnit: $toUnit")
+            val fromFormula = formulas[fromUnit] ?: throw Exception("FromUnit: $fromUnit")
             return when {
                 fromUnit == toUnit -> number
                 fromUnit == baseUnit -> toFormula(number)

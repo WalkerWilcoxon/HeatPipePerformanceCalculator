@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Field">
+        <attr name="name" format="string" />
+    </declare-styleable>
+    <declare-styleable name="Number">
+        <attr name="numberUnits" format="string"/>
+        <attr name="type" format="flags" >
+            <flag name="isImportant" value="1"/>
+            <flag name="staticUnits" value="2"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="InputNumberText">
+        <attr name="initialValue" format="float"/>
+        <attr name="minValue" format="float"/>
+        <attr name="maxValue" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberMenuField">
+        <attr name="items" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="InputWordMenuField">
+        <attr name="items" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="OutputNumberTextField">
+        <attr name="equation" format="string"/>
+    </declare-styleable>
+
+</resources>

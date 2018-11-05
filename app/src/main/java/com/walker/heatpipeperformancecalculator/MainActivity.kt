@@ -31,11 +31,11 @@ class MainActivity : AppCompatActivity() {
     val Poros = 0.52
     val R_cont = 0.000007
 
-    val temp by lateInit { InputNumberTextField("Temperature", "°C", 20.0, 500.0, 10.0) }
-    val theta by lateInit { InputNumberTextField("Operating Angle", "°", 90.0, 90.0, -90.0) }
-    val L_tot by lateInit { InputNumberTextField("Heat Pipe Length", "m", 0.15, 0.50, 0.01) }
-    val L_evap by lateInit { InputNumberTextField("Evaporator Length", "m", 0.02, 0.10, 0.01) }
-    val L_cond by lateInit { InputNumberTextField("Condenser Length", "m", 0.06, 0.10, 0.01) }
+    val temp by lateInit { InputNumberText("Temperature", "°C", 20.0, 500.0, 10.0) }
+    val theta by lateInit { InputNumberText("Operating Angle", "°", 90.0, 90.0, -90.0) }
+    val L_tot by lateInit { InputNumberText("Heat Pipe Length", "m", 0.15, 0.50, 0.01) }
+    val L_evap by lateInit { InputNumberText("Evaporator Length", "m", 0.02, 0.10, 0.01) }
+    val L_cond by lateInit { InputNumberText("Condenser Length", "m", 0.06, 0.10, 0.01) }
     val D_hp by lateInit {
         InputNumberMenuField("Heat Pipe Diameter", "m", 0.006,
                 0.003,
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 0.008,
                 0.01)
     }
-    val power by lateInit { InputNumberTextField("Input Power", "W", 10.0, 100.0, 1.0) }
+    val power by lateInit { InputNumberText("Input Power", "W", 10.0, 100.0, 1.0) }
     val powder by lateInit { InputWordMenuField("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
     val D_man by lateInit {
         OutputNumberTextField("Mandrel Diameter", "m") {
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     val t_wall by lateInit { OutputNumberTextField("Wall Thickness", "m") { if (D_hp() <= 0.006) 0.0003 else 0.0005 } }
     val t_wick by lateInit { OutputNumberTextField("Wick Thickness", "m") { (D_hp() - 2 * t_wall() - D_man()) / 2 } }
     val R_circ by lateInit {
-        OutputNumberTextField("Circumferential Resistance", "°C/W", NumberField.STATIC_UNITS) {
+        OutputNumberTextField("Circumferential Resistance", "°C/W", Number.STATIC_UNITS) {
             R_cont + (t_wall() + t_wick() / Poros) / k_copper
         }
     }
@@ -101,12 +101,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_conduct by lateInit {
-        OutputNumberTextField("Conduction Resistance", "°C/W", NumberField.STATIC_UNITS) {
+        OutputNumberTextField("Conduction Resistance", "°C/W", Number.STATIC_UNITS) {
             L_eff() / k_copper / (Math.PI / 4 * (D_hp() * D_hp() - r_vap() * r_vap()))
         }
     }
     val r_powder by lateInit {
-        OutputNumberTextField("Powder Radius", "m", NumberField.STATIC_UNITS) {
+        OutputNumberTextField("Powder Radius", "m", Number.STATIC_UNITS) {
             when (powder()) {
                 "Blue" -> 0.0000608
                 "Red" -> 0.000023524
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_total by lateInit {
-        OutputNumberTextField("Heatpipe Thermal Resistance", "°C/W", NumberField.IS_IMPORTANT) {
+        OutputNumberTextField("Heatpipe Thermal Resistance", "°C/W", Number.IS_IMPORTANT) {
             R_condense() + R_evap() + R_axial()
         }
     }
@@ -170,13 +170,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val Q_latent by lateInit {
-        OutputNumberTextField("Latent Heat", "J/kg", NumberField.STATIC_UNITS)
+        OutputNumberTextField("Latent Heat", "J/kg", Number.STATIC_UNITS)
         {
             (2500.8 - 2.36 * temp() + 0.0016 * temp() * temp() - 0.00006 * Math.pow(temp(), 3.0)) * 1000
         }
     }
     val k_liquid by lateInit {
-        OutputNumberTextField("Liquid Conductivity", "W/m/°C", NumberField.STATIC_UNITS)
+        OutputNumberTextField("Liquid Conductivity", "W/m/°C", Number.STATIC_UNITS)
         {
             -0.000007933 * T_k * T_k + 0.006222 * T_k - 0.5361
         }
@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val Q_limit by lateInit {
-        OutputNumberTextField("Heat Limit", "W", NumberField.IS_IMPORTANT)
+        OutputNumberTextField("Heat Limit", "W", Number.IS_IMPORTANT)
         {
             (P_max_cap() - P_gravity_drop()) / (L_eff() * (8 * vis_vapor() / (dens_vapor() * Math.PI * Math.pow(r_vap(), 4.0) * Q_latent()) + vis_liquid() / (dens_liquid() * perm() * A_wick() * Q_latent())))
         }
@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val n_hp by lateInit {
-        OutputNumberTextField("Required Heat Pipes", "", NumberField.IS_IMPORTANT)
+        OutputNumberTextField("Required Heat Pipes", "", Number.IS_IMPORTANT)
         {
             Math.ceil(power() / Q_limit())
         }
@@ -228,9 +228,9 @@ class MainActivity : AppCompatActivity() {
     val context = this
 
     companion object {
-        lateinit var numberFields: Array<NumberField>
+        lateinit var numberFields: Array<Number>
         lateinit var inputFields: Array<Field>
-        lateinit var inputNumberFields: Array<InputNumberTextField>
+        lateinit var inputNumbers: Array<InputNumberText>
         lateinit var outputNumberFields: Array<OutputNumberTextField>
         lateinit var importantOutputFields: Array<OutputNumberTextField>
         lateinit var unimportantOutputFields: Array<OutputNumberTextField>
@@ -243,8 +243,8 @@ class MainActivity : AppCompatActivity() {
 
         initializeFields()
 
-        inputSpinner.init(inputNumberFields, Globals.wrapSpinnerText) { _, _ ->
-            val field = inputSpinner.selectedItem as InputNumberTextField
+        inputSpinner.init(inputNumbers, Globals.wrapSpinnerText) { _, _ ->
+            val field = inputSpinner.selectedItem as InputNumberText
             startRangeText.inputType = field.numberText.inputType
             endRangeText.inputType = field.numberText.inputType
             endRangeUnits.text = selectedInputField.textUnits
@@ -300,9 +300,9 @@ class MainActivity : AppCompatActivity() {
 
         lateInit.inialize()
 
-        numberFields = fields.filter { it is NumberField }.map { it as NumberField }.toTypedArray()
+        numberFields = fields.filter { it is Number }.map { it as Number }.toTypedArray()
         inputFields = fields.filter { it is Input }.toTypedArray()
-        inputNumberFields = fields.filter { it is InputNumberTextField }.map { it as InputNumberTextField }.toTypedArray()
+        inputNumbers = fields.filter { it is InputNumberText }.map { it as InputNumberText }.toTypedArray()
         outputNumberFields = fields.filter { it is OutputNumberTextField }.map { it as OutputNumberTextField }.toTypedArray()
         val (important, unimportant) = outputNumberFields.partition { it.isImportant }
         importantOutputFields = important.toTypedArray()
@@ -346,7 +346,7 @@ class MainActivity : AppCompatActivity() {
             (endRangeText as TextView).text = BigDecimal(value).stripTrailingZeros().toPlainString()
         }
 
-    val selectedInputField get() = inputSpinner.selectedItem as InputNumberTextField
+    val selectedInputField get() = inputSpinner.selectedItem as InputNumberText
     val selectedOutputField get() = outputSpinner.selectedItem as OutputNumberTextField
 
     val graphColors = arrayOf(
@@ -414,9 +414,9 @@ class MainActivity : AppCompatActivity() {
         if (shouldUpdateGraphInputs) {
             shouldUpdateGraphInputs = false
             if (showAllPropertiesCheckBox.isChecked) {
-                outputSpinner.adapter = ArrayAdapter<NumberField>(this, Globals.wrapSpinnerText, (importantOutputFields + unimportantOutputFields).filter { it.isDependantOn(selectedInputField) })
+                outputSpinner.adapter = ArrayAdapter<Number>(this, Globals.wrapSpinnerText, (importantOutputFields + unimportantOutputFields).filter { it.isDependantOn(selectedInputField) })
             } else {
-                outputSpinner.adapter = ArrayAdapter<NumberField>(this, Globals.wrapSpinnerText, importantOutputFields.filter { it.isDependantOn(selectedInputField) })
+                outputSpinner.adapter = ArrayAdapter<Number>(this, Globals.wrapSpinnerText, importantOutputFields.filter { it.isDependantOn(selectedInputField) })
             }
             shouldUpdateGraphInputs = true
         }
