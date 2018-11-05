@@ -15,13 +15,13 @@
         <attr name="minValue" format="float"/>
         <attr name="maxValue" format="float"/>
     </declare-styleable>
-    <declare-styleable name="InputNumberMenuField">
+    <declare-styleable name="InputNumberMenu">
         <attr name="items" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="InputWordMenuField">
+    <declare-styleable name="InputWordMenu">
         <attr name="items" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="OutputNumberTextField">
+    <declare-styleable name="OutputNumberText">
         <attr name="equation" format="string"/>
     </declare-styleable>
 

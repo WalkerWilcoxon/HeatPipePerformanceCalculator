@@ -120,8 +120,8 @@ class InputNumberText(context: Context, attrs: AttributeSet) : TextNumberField(c
 }
 
 
-class OutputNumberTextField(context: Context, attrs: AttributeSet) : TextNumberField(context, attrs) {
-    val equationString = attrs.getAttributeValue(R.styleable.OutputNumberTextField_equation)
+class OutputNumberText(context: Context, attrs: AttributeSet) : TextNumberField(context, attrs) {
+    val equationString = attrs.getAttributeValue(R.styleable.OutputNumberText_equation)
     val equation = Function(equationString)
     override val number get() = equation.calculate()
     override val numberText = createTextView(context)
@@ -155,7 +155,7 @@ interface Menu<T> {
     }
 }
 
-class InputWordMenuField(context: Context, attrs: AttributeSet) : Field(context, attrs), Menu<String>, Input {
+class InputWordMenu(context: Context, attrs: AttributeSet) : Field(context, attrs), Menu<String>, Input {
     override val menu = createMenu(context) { Field.updateOutputs() }
 
     override val items: Array<String> = context.obtainStyledAttributes(attrs, R.styleable.InputWordMenuField).run { resources.getStringArray(getResourceId(R.styleable.InputWordMenuField_items, 0)) }

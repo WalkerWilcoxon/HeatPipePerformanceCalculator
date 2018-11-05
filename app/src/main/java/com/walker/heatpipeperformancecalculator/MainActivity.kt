@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
                 0.01)
     }
     val power by lateInit { InputNumberText("Input Power", "W", 10.0, 100.0, 1.0) }
-    val powder by lateInit { InputWordMenuField("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
+    val powder by lateInit { InputWordMenu("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
     val D_man by lateInit {
-        OutputNumberTextField("Mandrel Diameter", "m") {
+        OutputNumberText("Mandrel Diameter", "m") {
             when (D_hp()) {
                 0.003 -> 0.0016
                 0.004 -> 0.0026
@@ -61,35 +61,35 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    val t_wall by lateInit { OutputNumberTextField("Wall Thickness", "m") { if (D_hp() <= 0.006) 0.0003 else 0.0005 } }
-    val t_wick by lateInit { OutputNumberTextField("Wick Thickness", "m") { (D_hp() - 2 * t_wall() - D_man()) / 2 } }
+    val t_wall by lateInit { OutputNumberText("Wall Thickness", "m") { if (D_hp() <= 0.006) 0.0003 else 0.0005 } }
+    val t_wick by lateInit { OutputNumberText("Wick Thickness", "m") { (D_hp() - 2 * t_wall() - D_man()) / 2 } }
     val R_circ by lateInit {
-        OutputNumberTextField("Circumferential Resistance", "°C/W", Number.STATIC_UNITS) {
+        OutputNumberText("Circumferential Resistance", "°C/W", Number.STATIC_UNITS) {
             R_cont + (t_wall() + t_wick() / Poros) / k_copper
         }
     }
     val r_vap by lateInit {
-        OutputNumberTextField("Radius of Vapor Space", "m") {
+        OutputNumberText("Radius of Vapor Space", "m") {
             (D_hp() - 2 * t_wall() - 2 * t_wick()) / 2.0
         }
     }
     val A_wick by lateInit {
-        OutputNumberTextField("Cross Sectional Area", "m^2 ") {
+        OutputNumberText("Cross Sectional Area", "m^2 ") {
             Math.PI * (Math.pow(0.5 * D_hp() - t_wall(), 2.0) - Math.pow(r_vap(), 2.0))
         }
     }
     val L_adia by lateInit {
-        OutputNumberTextField("Adiabatic Length", "m") {
+        OutputNumberText("Adiabatic Length", "m") {
             L_tot() - L_evap() - L_cond()
         }
     }
     val L_eff by lateInit {
-        OutputNumberTextField("Effective Length", "m") {
+        OutputNumberText("Effective Length", "m") {
             L_adia() + (L_evap() + L_cond()) / 2.0
         }
     }
     val perm by lateInit {
-        OutputNumberTextField("Permeability", "m") {
+        OutputNumberText("Permeability", "m") {
             when (powder()) {
                 "Blue" -> 0.000000000086
                 "Red" -> 0.0000000000094658
@@ -101,12 +101,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_conduct by lateInit {
-        OutputNumberTextField("Conduction Resistance", "°C/W", Number.STATIC_UNITS) {
+        OutputNumberText("Conduction Resistance", "°C/W", Number.STATIC_UNITS) {
             L_eff() / k_copper / (Math.PI / 4 * (D_hp() * D_hp() - r_vap() * r_vap()))
         }
     }
     val r_powder by lateInit {
-        OutputNumberTextField("Powder Radius", "m", Number.STATIC_UNITS) {
+        OutputNumberText("Powder Radius", "m", Number.STATIC_UNITS) {
             when (powder()) {
                 "Blue" -> 0.0000608
                 "Red" -> 0.000023524
@@ -118,107 +118,107 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_condense by lateInit {
-        OutputNumberTextField("Condenser Resistance", "°C/W") {
+        OutputNumberText("Condenser Resistance", "°C/W") {
             (R_cont + ((t_wall() + t_wick() / Poros) / k_copper)) / (PI * D_hp() * L_cond() * 0.5)
         }
     }
     val R_evap by lateInit {
-        OutputNumberTextField("Evaporator Resistance", "°C/W") {
+        OutputNumberText("Evaporator Resistance", "°C/W") {
             (R_cont + ((t_wall() + t_wick() / Poros) / k_copper)) / (PI * D_hp() * L_evap() * 0.33)
         }
     }
     val R_axial by lateInit {
-        OutputNumberTextField("Axial Resistance", "°C/W") {
+        OutputNumberText("Axial Resistance", "°C/W") {
             PI * Math.pow(r_vap(), 2.0) * 100
         }
     }
     val R_total by lateInit {
-        OutputNumberTextField("Heatpipe Thermal Resistance", "°C/W", Number.IS_IMPORTANT) {
+        OutputNumberText("Heatpipe Thermal Resistance", "°C/W", Number.IS_IMPORTANT) {
             R_condense() + R_evap() + R_axial()
         }
     }
     val P_vapor by lateInit {
-        OutputNumberTextField("Vapor Pressure", " kg/m^3 ") {
+        OutputNumberText("Vapor Pressure", " kg/m^3 ") {
             Math.pow(10.0, 8.07131 - 1730.63 / (233.426 + temp())) * 133.322
         }
     }
     val dens_liquid by lateInit {
-        OutputNumberTextField("Liquid Density", "N*m/s") {
+        OutputNumberText("Liquid Density", "N*m/s") {
             0.14395 / Math.pow(0.0112, 1 + Math.pow(1 - T_k / 649.727, 0.05107))
         }
     }
     val vis_liquid by lateInit {
-        OutputNumberTextField("Liquid Viscosity", "kg/m^3") {
+        OutputNumberText("Liquid Viscosity", "kg/m^3") {
             Math.exp(-3.7188 + 578.99 / (T_k - 137.546)) / 1000
         }
     }
     val dens_vapor by lateInit {
-        OutputNumberTextField("Vapor Density", "N*m/s") {
+        OutputNumberText("Vapor Density", "N*m/s") {
             0.0022 / T_k * Math.exp(77.345 + 0.0057 * T_k - 7235 / T_k) / Math.pow(T_k, 8.2)
         }
     }
     val vis_vapor by lateInit {
-        OutputNumberTextField("Vapor Viscosity", "Pa")
+        OutputNumberText("Vapor Viscosity", "Pa")
         {
             1.512 * Math.pow(T_k, 1.5) / 2.0 / (T_k + 120) / 1000000.0
         }
     }
     val tens_surface by lateInit {
-        OutputNumberTextField("Surface Tension", "N/m")
+        OutputNumberText("Surface Tension", "N/m")
         {
             235.8 * Math.pow(1 - T_k / 647.098, 1.256) * (1 - 0.625 * (1 - T_k / 647.098)) / 1000
         }
     }
     val Q_latent by lateInit {
-        OutputNumberTextField("Latent Heat", "J/kg", Number.STATIC_UNITS)
+        OutputNumberText("Latent Heat", "J/kg", Number.STATIC_UNITS)
         {
             (2500.8 - 2.36 * temp() + 0.0016 * temp() * temp() - 0.00006 * Math.pow(temp(), 3.0)) * 1000
         }
     }
     val k_liquid by lateInit {
-        OutputNumberTextField("Liquid Conductivity", "W/m/°C", Number.STATIC_UNITS)
+        OutputNumberText("Liquid Conductivity", "W/m/°C", Number.STATIC_UNITS)
         {
             -0.000007933 * T_k * T_k + 0.006222 * T_k - 0.5361
         }
     }
     val P_max_cap by lateInit {
-        OutputNumberTextField("Max Capillary Pressure", "Pa")
+        OutputNumberText("Max Capillary Pressure", "Pa")
         {
             2.0 * tens_surface() / r_powder()
         }
     }
     val P_gravity_drop by lateInit {
-        OutputNumberTextField("Pressure Drop of Gravity", "Pa")
+        OutputNumberText("Pressure Drop of Gravity", "Pa")
         {
             dens_liquid() * g * L_tot() * -Math.sin(theta() * Math.PI / 180)
         }
     }
     val Q_limit by lateInit {
-        OutputNumberTextField("Heat Limit", "W", Number.IS_IMPORTANT)
+        OutputNumberText("Heat Limit", "W", Number.IS_IMPORTANT)
         {
             (P_max_cap() - P_gravity_drop()) / (L_eff() * (8 * vis_vapor() / (dens_vapor() * Math.PI * Math.pow(r_vap(), 4.0) * Q_latent()) + vis_liquid() / (dens_liquid() * perm() * A_wick() * Q_latent())))
         }
     }
     val P_vapor_drop by lateInit {
-        OutputNumberTextField("Pressure Drop of Vapor", "Pa")
+        OutputNumberText("Pressure Drop of Vapor", "Pa")
         {
             8.0 * vis_vapor() * Q_limit() * L_eff() / (dens_vapor() * Math.PI * Math.pow(r_vap(), 4.0) * Q_latent())
         }
     }
     val P_liquid_drop by lateInit {
-        OutputNumberTextField("Pressure Drop of Liquid", "Pa")
+        OutputNumberText("Pressure Drop of Liquid", "Pa")
         {
             vis_liquid() * L_eff() * Q_limit() / (dens_liquid() * perm() * A_wick() * Q_latent())
         }
     }
     val P_cap_rem by lateInit {
-        OutputNumberTextField("Capillary Pressure Remaining", "Pa")
+        OutputNumberText("Capillary Pressure Remaining", "Pa")
         {
             P_max_cap() - P_gravity_drop() - P_vapor_drop() - P_liquid_drop()
         }
     }
     val n_hp by lateInit {
-        OutputNumberTextField("Required Heat Pipes", "", Number.IS_IMPORTANT)
+        OutputNumberText("Required Heat Pipes", "", Number.IS_IMPORTANT)
         {
             Math.ceil(power() / Q_limit())
         }
@@ -231,9 +231,9 @@ class MainActivity : AppCompatActivity() {
         lateinit var numberFields: Array<Number>
         lateinit var inputFields: Array<Field>
         lateinit var inputNumbers: Array<InputNumberText>
-        lateinit var outputNumberFields: Array<OutputNumberTextField>
-        lateinit var importantOutputFields: Array<OutputNumberTextField>
-        lateinit var unimportantOutputFields: Array<OutputNumberTextField>
+        lateinit var outputNumberFields: Array<OutputNumberText>
+        lateinit var importantOutputFields: Array<OutputNumberText>
+        lateinit var unimportantOutputFields: Array<OutputNumberText>
         lateinit var unitFields: Array<UnitMenuField>
     }
 
@@ -303,7 +303,7 @@ class MainActivity : AppCompatActivity() {
         numberFields = fields.filter { it is Number }.map { it as Number }.toTypedArray()
         inputFields = fields.filter { it is Input }.toTypedArray()
         inputNumbers = fields.filter { it is InputNumberText }.map { it as InputNumberText }.toTypedArray()
-        outputNumberFields = fields.filter { it is OutputNumberTextField }.map { it as OutputNumberTextField }.toTypedArray()
+        outputNumberFields = fields.filter { it is OutputNumberText }.map { it as OutputNumberText }.toTypedArray()
         val (important, unimportant) = outputNumberFields.partition { it.isImportant }
         importantOutputFields = important.toTypedArray()
         unimportantOutputFields = unimportant.toTypedArray()
@@ -347,7 +347,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     val selectedInputField get() = inputSpinner.selectedItem as InputNumberText
-    val selectedOutputField get() = outputSpinner.selectedItem as OutputNumberTextField
+    val selectedOutputField get() = outputSpinner.selectedItem as OutputNumberText
 
     val graphColors = arrayOf(
             Color.parseColor("#cc0000"),
