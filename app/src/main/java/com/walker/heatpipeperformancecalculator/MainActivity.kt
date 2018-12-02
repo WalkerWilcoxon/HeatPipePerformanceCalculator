@@ -3,6 +3,7 @@ package com.walker.heatpipeperformancecalculator
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -11,7 +12,6 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.walker.heatpipeperformancecalculator.Field.Companion.fields
 import com.walker.heatpipeperformancecalculator.R.layout.main
 import com.walker.heatpipeperformancecalculator.UnitConverter.Factors.baseUnits
-import com.walker.heatpipeperformancecalculator.UnitConverter.Factors.units
 import kotlinx.android.synthetic.main.main.*
 import java.math.BigDecimal
 import kotlin.math.PI
@@ -19,17 +19,25 @@ import kotlin.math.max
 import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
-    var tempUnit = "C"
-    var lengthUnit = "m"
-    var forceUnit = "N"
-    var massUnit = "kg"
-    var pressureUnit = "Pa"
-
     val axial_R = 0.000001
     val k_copper = 380.0
     val g = 9.81
     val Poros = 0.52
+
     val R_cont = 0.000007
+    val D_man_1 = 0.0016
+    val D_man_2 = 0.0026
+    val D_man_3 = 0.0036
+    val D_man_4 = 0.0044
+    val D_man_5 = 0.006
+    val D_man_6 = 0.008
+
+    val D_hp_1 = 0.003
+    val D_hp_2 = 0.004
+    val D_hp_3 = 0.005
+    val D_hp_4 = 0.006
+    val D_hp_5 = 0.008
+    val D_hp_6 = 0.01
 
     val temp by lateInit { InputNumberText("Temperature", "°C", 20.0, 500.0, 10.0) }
     val theta by lateInit { InputNumberText("Operating Angle", "°", 90.0, 90.0, -90.0) }
@@ -37,59 +45,59 @@ class MainActivity : AppCompatActivity() {
     val L_evap by lateInit { InputNumberText("Evaporator Length", "m", 0.02, 0.10, 0.01) }
     val L_cond by lateInit { InputNumberText("Condenser Length", "m", 0.06, 0.10, 0.01) }
     val D_hp by lateInit {
-        InputNumberMenuField("Heat Pipe Diameter", "m", 0.006,
-                0.003,
-                0.004,
-                0.005,
-                0.006,
-                0.008,
-                0.01)
+        InputNumberMenu("Heat Pipe Diameter", "m", 0.006,
+                D_hp_1,
+                D_hp_2,
+                D_hp_3,
+                D_hp_4,
+                D_hp_5,
+                D_hp_6)
     }
     val power by lateInit { InputNumberText("Input Power", "W", 10.0, 100.0, 1.0) }
-    val powder by lateInit { InputWordMenu("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
+    val powder by lateInit { InputEnumeration("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
     val D_man by lateInit {
-        OutputNumberText("Mandrel Diameter", "m") {
+        OutputNumber("Mandrel Diameter", "m") {
             when (D_hp()) {
-                0.003 -> 0.0016
-                0.004 -> 0.0026
-                0.005 -> 0.0036
-                0.006 -> 0.0044
-                0.008 -> 0.006
-                0.01 -> 0.008
-                else -> throw NullPointerException("Mandrel Diameter couldn't be determined")
+                D_hp_1 -> D_man_1
+                D_hp_2 -> D_man_2
+                D_hp_3 -> D_man_3
+                D_hp_4 -> D_man_4
+                D_hp_5 -> D_man_5
+                D_hp_6 -> D_man_6
+                else -> throw NullPointerException("Unknown D_hp value:${D_hp()}")
             }
         }
 
     }
-    val t_wall by lateInit { OutputNumberText("Wall Thickness", "m") { if (D_hp() <= 0.006) 0.0003 else 0.0005 } }
-    val t_wick by lateInit { OutputNumberText("Wick Thickness", "m") { (D_hp() - 2 * t_wall() - D_man()) / 2 } }
+    val t_wall by lateInit { OutputNumber("Wall Thickness", "m") { if (D_hp() <= 0.006) 0.0003 else 0.0005 } }
+    val t_wick by lateInit { OutputNumber("Wick Thickness", "m") { (D_hp() - 2 * t_wall() - D_man()) / 2 } }
     val R_circ by lateInit {
-        OutputNumberText("Circumferential Resistance", "°C/W", Number.STATIC_UNITS) {
+        OutputNumber("Circumferential Resistance", "°C/W", Number.STATIC_UNITS) {
             R_cont + (t_wall() + t_wick() / Poros) / k_copper
         }
     }
     val r_vap by lateInit {
-        OutputNumberText("Radius of Vapor Space", "m") {
+        OutputNumber("Radius of Vapor Space", "m") {
             (D_hp() - 2 * t_wall() - 2 * t_wick()) / 2.0
         }
     }
     val A_wick by lateInit {
-        OutputNumberText("Cross Sectional Area", "m^2 ") {
+        OutputNumber("Cross Sectional Area", "m^2 ") {
             Math.PI * (Math.pow(0.5 * D_hp() - t_wall(), 2.0) - Math.pow(r_vap(), 2.0))
         }
     }
     val L_adia by lateInit {
-        OutputNumberText("Adiabatic Length", "m") {
+        OutputNumber("Adiabatic Length", "m") {
             L_tot() - L_evap() - L_cond()
         }
     }
     val L_eff by lateInit {
-        OutputNumberText("Effective Length", "m") {
+        OutputNumber("Effective Length", "m") {
             L_adia() + (L_evap() + L_cond()) / 2.0
         }
     }
     val perm by lateInit {
-        OutputNumberText("Permeability", "m") {
+        OutputNumber("Permeability", "m") {
             when (powder()) {
                 "Blue" -> 0.000000000086
                 "Red" -> 0.0000000000094658
@@ -101,12 +109,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_conduct by lateInit {
-        OutputNumberText("Conduction Resistance", "°C/W", Number.STATIC_UNITS) {
+        OutputNumber("Conduction Resistance", "°C/W", Number.STATIC_UNITS) {
             L_eff() / k_copper / (Math.PI / 4 * (D_hp() * D_hp() - r_vap() * r_vap()))
         }
     }
     val r_powder by lateInit {
-        OutputNumberText("Powder Radius", "m", Number.STATIC_UNITS) {
+        OutputNumber("Powder Radius", "m", Number.STATIC_UNITS) {
             when (powder()) {
                 "Blue" -> 0.0000608
                 "Red" -> 0.000023524
@@ -118,107 +126,107 @@ class MainActivity : AppCompatActivity() {
         }
     }
     val R_condense by lateInit {
-        OutputNumberText("Condenser Resistance", "°C/W") {
+        OutputNumber("Condenser Resistance", "°C/W") {
             (R_cont + ((t_wall() + t_wick() / Poros) / k_copper)) / (PI * D_hp() * L_cond() * 0.5)
         }
     }
     val R_evap by lateInit {
-        OutputNumberText("Evaporator Resistance", "°C/W") {
+        OutputNumber("Evaporator Resistance", "°C/W") {
             (R_cont + ((t_wall() + t_wick() / Poros) / k_copper)) / (PI * D_hp() * L_evap() * 0.33)
         }
     }
     val R_axial by lateInit {
-        OutputNumberText("Axial Resistance", "°C/W") {
+        OutputNumber("Axial Resistance", "°C/W") {
             PI * Math.pow(r_vap(), 2.0) * 100
         }
     }
     val R_total by lateInit {
-        OutputNumberText("Heatpipe Thermal Resistance", "°C/W", Number.IS_IMPORTANT) {
+        OutputNumber("Heatpipe Thermal Resistance", "°C/W", Number.IS_IMPORTANT) {
             R_condense() + R_evap() + R_axial()
         }
     }
     val P_vapor by lateInit {
-        OutputNumberText("Vapor Pressure", " kg/m^3 ") {
+        OutputNumber("Vapor Pressure", " kg/m^3 ") {
             Math.pow(10.0, 8.07131 - 1730.63 / (233.426 + temp())) * 133.322
         }
     }
     val dens_liquid by lateInit {
-        OutputNumberText("Liquid Density", "N*m/s") {
+        OutputNumber("Liquid Density", "N*m/s") {
             0.14395 / Math.pow(0.0112, 1 + Math.pow(1 - T_k / 649.727, 0.05107))
         }
     }
     val vis_liquid by lateInit {
-        OutputNumberText("Liquid Viscosity", "kg/m^3") {
+        OutputNumber("Liquid Viscosity", "kg/m^3") {
             Math.exp(-3.7188 + 578.99 / (T_k - 137.546)) / 1000
         }
     }
     val dens_vapor by lateInit {
-        OutputNumberText("Vapor Density", "N*m/s") {
+        OutputNumber("Vapor Density", "N*m/s") {
             0.0022 / T_k * Math.exp(77.345 + 0.0057 * T_k - 7235 / T_k) / Math.pow(T_k, 8.2)
         }
     }
     val vis_vapor by lateInit {
-        OutputNumberText("Vapor Viscosity", "Pa")
+        OutputNumber("Vapor Viscosity", "Pa")
         {
             1.512 * Math.pow(T_k, 1.5) / 2.0 / (T_k + 120) / 1000000.0
         }
     }
     val tens_surface by lateInit {
-        OutputNumberText("Surface Tension", "N/m")
+        OutputNumber("Surface Tension", "N/m")
         {
             235.8 * Math.pow(1 - T_k / 647.098, 1.256) * (1 - 0.625 * (1 - T_k / 647.098)) / 1000
         }
     }
     val Q_latent by lateInit {
-        OutputNumberText("Latent Heat", "J/kg", Number.STATIC_UNITS)
+        OutputNumber("Latent Heat", "J/kg", Number.STATIC_UNITS)
         {
             (2500.8 - 2.36 * temp() + 0.0016 * temp() * temp() - 0.00006 * Math.pow(temp(), 3.0)) * 1000
         }
     }
     val k_liquid by lateInit {
-        OutputNumberText("Liquid Conductivity", "W/m/°C", Number.STATIC_UNITS)
+        OutputNumber("Liquid Conductivity", "W/m/°C", Number.STATIC_UNITS)
         {
             -0.000007933 * T_k * T_k + 0.006222 * T_k - 0.5361
         }
     }
     val P_max_cap by lateInit {
-        OutputNumberText("Max Capillary Pressure", "Pa")
+        OutputNumber("Max Capillary Pressure", "Pa")
         {
             2.0 * tens_surface() / r_powder()
         }
     }
     val P_gravity_drop by lateInit {
-        OutputNumberText("Pressure Drop of Gravity", "Pa")
+        OutputNumber("Pressure Drop of Gravity", "Pa")
         {
             dens_liquid() * g * L_tot() * -Math.sin(theta() * Math.PI / 180)
         }
     }
     val Q_limit by lateInit {
-        OutputNumberText("Heat Limit", "W", Number.IS_IMPORTANT)
+        OutputNumber("Heat Limit", "W", Number.IS_IMPORTANT)
         {
             (P_max_cap() - P_gravity_drop()) / (L_eff() * (8 * vis_vapor() / (dens_vapor() * Math.PI * Math.pow(r_vap(), 4.0) * Q_latent()) + vis_liquid() / (dens_liquid() * perm() * A_wick() * Q_latent())))
         }
     }
     val P_vapor_drop by lateInit {
-        OutputNumberText("Pressure Drop of Vapor", "Pa")
+        OutputNumber("Pressure Drop of Vapor", "Pa")
         {
             8.0 * vis_vapor() * Q_limit() * L_eff() / (dens_vapor() * Math.PI * Math.pow(r_vap(), 4.0) * Q_latent())
         }
     }
     val P_liquid_drop by lateInit {
-        OutputNumberText("Pressure Drop of Liquid", "Pa")
+        OutputNumber("Pressure Drop of Liquid", "Pa")
         {
             vis_liquid() * L_eff() * Q_limit() / (dens_liquid() * perm() * A_wick() * Q_latent())
         }
     }
     val P_cap_rem by lateInit {
-        OutputNumberText("Capillary Pressure Remaining", "Pa")
+        OutputNumber("Capillary Pressure Remaining", "Pa")
         {
             P_max_cap() - P_gravity_drop() - P_vapor_drop() - P_liquid_drop()
         }
     }
     val n_hp by lateInit {
-        OutputNumberText("Required Heat Pipes", "", Number.IS_IMPORTANT)
+        OutputNumber("Required Heat Pipes", "", Number.IS_IMPORTANT)
         {
             Math.ceil(power() / Q_limit())
         }
@@ -228,27 +236,27 @@ class MainActivity : AppCompatActivity() {
     val context = this
 
     companion object {
-        lateinit var numberFields: Array<Number>
-        lateinit var inputFields: Array<Field>
+        lateinit var numbers: Array<Number>
+        lateinit var inputs: Array<Field>
         lateinit var inputNumbers: Array<InputNumberText>
-        lateinit var outputNumberFields: Array<OutputNumberText>
-        lateinit var importantOutputFields: Array<OutputNumberText>
-        lateinit var unimportantOutputFields: Array<OutputNumberText>
-        lateinit var unitFields: Array<UnitMenuField>
+        lateinit var outputs: Array<OutputNumber>
+        lateinit var units: Array<UnitMenu>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(main)
 
+        Globals.density = DisplayMetrics().also { windowManager.defaultDisplay.getMetrics(it) }.density
+
         initializeFields()
 
-        inputSpinner.init(inputNumbers, Globals.wrapSpinnerText) { _, _ ->
+        inputSpinner.init(inputNumbers) { _, _ ->
             val field = inputSpinner.selectedItem as InputNumberText
             startRangeText.inputType = field.numberText.inputType
             endRangeText.inputType = field.numberText.inputType
-            endRangeUnits.text = selectedInputField.textUnits
-            startRangeUnits.text = selectedInputField.textUnits
+            endRangeUnits.text = selectedInputField.convertedUnits
+            startRangeUnits.text = selectedInputField.convertedUnits
             startNum = field.convertedMinValue
             endNum = field.convertedMaxValue
             updateGraphOutputs();
@@ -257,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 
         inputSpinner.setSelection(0)
 
-        outputSpinner.init(importantOutputFields, Globals.wrapSpinnerText) { _, _ -> updateGraph() }
+        outputSpinner.init(outputs) { _, _ -> updateGraph() }
 
         outputSpinner.setSelection(0)
 
@@ -284,8 +292,6 @@ class MainActivity : AppCompatActivity() {
         graph.viewport.isXAxisBoundsManual = true
         graph.viewport.isYAxisBoundsManual = true
 
-        Thread.sleep(500)
-
         changeUnit("m", "mm")
 
         updateGraphOutputs()
@@ -300,34 +306,27 @@ class MainActivity : AppCompatActivity() {
 
         lateInit.inialize()
 
-        numberFields = fields.filter { it is Number }.map { it as Number }.toTypedArray()
-        inputFields = fields.filter { it is Input }.toTypedArray()
+        numbers = fields.filter { it is Number }.map { it as Number }.toTypedArray()
+        inputs = fields.filter { it is Input }.toTypedArray()
         inputNumbers = fields.filter { it is InputNumberText }.map { it as InputNumberText }.toTypedArray()
-        outputNumberFields = fields.filter { it is OutputNumberText }.map { it as OutputNumberText }.toTypedArray()
-        val (important, unimportant) = outputNumberFields.partition { it.isImportant }
-        importantOutputFields = important.toTypedArray()
-        unimportantOutputFields = unimportant.toTypedArray()
+        outputs = fields.filter { it is OutputNumber }.map { it as OutputNumber }.toTypedArray()
 
-        inputFields.sortWith(compareBy { it.nameText.text.toString() })
-        importantOutputFields.sortedWith(compareBy { it.nameText.text.toString() })
-        unimportantOutputFields.sortedWith(compareBy { it.nameText.text.toString() })
+        inputs.sortWith(compareBy { it.nameText.text.toString() })
+        outputs.sortWith(compareBy(OutputNumber::isImportant, { it.nameText.text.toString() }))
 
-        inputFields.forEach {
+        inputs.forEach {
             it.addToGrid(inputGrid)
         }
-        importantOutputFields.forEach {
+        outputs.forEach {
             it.addToGrid(outputGrid)
         }
-        unimportantOutputFields.forEach {
-            it.addToGrid(outputGrid)
+        UnitConverter.Factors.units.forEach {
+            UnitMenu(it.key.name, baseUnits[it.key]!!, it.value.toTypedArray()).addToGrid(unitsGrid)
         }
-        units.forEach {
-            UnitMenuField(it.key.name, baseUnits[it.key]!!, it.value.toTypedArray()).addToGrid(unitsGrid)
-        }
-        unitFields = fields.filter { it is UnitMenuField }.map { it as UnitMenuField }.toTypedArray()
+        units = fields.filter { it is UnitMenu }.map { it as UnitMenu }.toTypedArray()
 
         Field.updateOutputs = {
-            outputNumberFields.forEach {
+            outputs.forEach {
                 it.updateNumberText()
             }
             updateGraph()
@@ -347,7 +346,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     val selectedInputField get() = inputSpinner.selectedItem as InputNumberText
-    val selectedOutputField get() = outputSpinner.selectedItem as OutputNumberText
+    val selectedOutputField get() = outputSpinner.selectedItem as OutputNumber
 
     val graphColors = arrayOf(
             Color.parseColor("#cc0000"),
@@ -355,7 +354,8 @@ class MainActivity : AppCompatActivity() {
             Color.parseColor("#ff9900"),
             Color.parseColor("#0066ff"),
             Color.parseColor("#ffff00"),
-            Color.parseColor("#993399"))
+            Color.parseColor("#993399")
+    )
 
     fun updateGraph() {
         if (startNum >= endNum) {
@@ -388,7 +388,7 @@ class MainActivity : AppCompatActivity() {
                 yMin = min(yMin, outputNum)
             }
             val series = LineGraphSeries<DataPoint>(dataPoints.toTypedArray())
-            series.title = "${D_hp.convertedNumberString} ${D_hp.textUnits}"
+            series.title = "${D_hp.convertedNumber.toRoundedString()} ${D_hp.convertedUnits}"
             series.color = color
             graph.addSeries(series)
 
@@ -408,38 +408,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    var shouldUpdateGraphInputs = true
+    var isUpdatingGraphs = true
 
     fun updateGraphOutputs() {
-        if (shouldUpdateGraphInputs) {
-            shouldUpdateGraphInputs = false
-            if (showAllPropertiesCheckBox.isChecked) {
-                outputSpinner.adapter = ArrayAdapter<Number>(this, Globals.wrapSpinnerText, (importantOutputFields + unimportantOutputFields).filter { it.isDependantOn(selectedInputField) })
-            } else {
-                outputSpinner.adapter = ArrayAdapter<Number>(this, Globals.wrapSpinnerText, importantOutputFields.filter { it.isDependantOn(selectedInputField) })
-            }
-            shouldUpdateGraphInputs = true
+        if (isUpdatingGraphs) {
+            isUpdatingGraphs = false
+            val showAll = showAllPropertiesCheckBox.isChecked
+            outputSpinner.adapter = ArrayAdapter<Number>(this, R.layout.text_view_wrap, outputs.filter { (if (!showAll) it.isImportant else true) && it.isDependantOn(selectedInputField) })
+            isUpdatingGraphs = true
         }
     }
 
     private fun changeUnit(oldUnit: String, newUnit: String) {
-        for (field in numberFields) {
+        for (field in numbers) {
             field.changeUnit(oldUnit, newUnit)
         }
-        unitFields.find { it.name.baseUnitName() == oldUnit }!!.setSelection(newUnit)
-        endRangeUnits.text = selectedInputField.textUnits
-        startRangeUnits.text = selectedInputField.textUnits
+        units.find { it.name.baseUnitName() == oldUnit }!!.menu.setSelection(newUnit)
+        endRangeUnits.text = selectedInputField.convertedUnits
+        startRangeUnits.text = selectedInputField.convertedUnits
     }
 
     fun toggleUnimportantFields(view: View?) {
-        unimportantOutputFields.forEach {
-            it.toggleVisibility()
+        outputs.forEach {
+            if (!it.isImportant) it.toggleVisibility()
         }
         updateGraphOutputs()
     }
 
     fun toggleUnits(view: View?) {
-        unitsLayouts.toggleVisibility()
+        unitsLayout.toggleVisibility()
     }
 
     fun toggleGraph(view: View?) {

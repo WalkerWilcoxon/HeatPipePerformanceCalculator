@@ -4,7 +4,7 @@
             "outputFile": "F:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\22fde0050bad3df3cb046bcd1a40aaeb\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\3e8132c6db1224b7067ee3457a569abd\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0a6bd5194acb9624f7eac5b2eb774adf\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\2928e321b2c60b807550df19bc4eec36\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

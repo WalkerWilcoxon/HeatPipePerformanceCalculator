@@ -15,10 +15,19 @@ private fun String.unitType(): UnitConverter.Factors.UnitType {
     throw NoSuchElementException("Unit type of $this could not be determined")
 }
 
-class UnitConverter(val baseUnits: String) {
+object StaticUnitConverter: UnitConverter("") {
+    override fun changeUnit(oldUnit: String, newUnit: String) {}
+    override fun convertTo(number: Double) = number
+    override fun convertFrom(number: Double) = number
+    override fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>) = number
+    override val isStatic = true
+}
+
+open class UnitConverter(val baseUnits: String) {
     private val baseUnitsArray = ArrayList<Unit>()
     var convertedUnits = baseUnits
     private val convertedUnitsArray = ArrayList<Unit>()
+    open val isStatic = false
 
     init {
         val splitUnits = baseUnits.split('*', '/')
@@ -41,9 +50,9 @@ class UnitConverter(val baseUnits: String) {
         }
     }
 
-    private val numUnits = baseUnitsArray.size
+    private val numberOfUnits = baseUnitsArray.size
 
-    fun changeUnit(oldUnit: String, newUnit: String) {
+    open fun changeUnit(oldUnit: String, newUnit: String) {
         val index = baseUnitsArray.map { it.str }.indexOf(oldUnit)
         if (index != -1) {
             convertedUnitsArray[index] = Unit(newUnit, convertedUnitsArray[index].power)
@@ -51,15 +60,15 @@ class UnitConverter(val baseUnits: String) {
         }
     }
 
-    fun convertTo(number: Double): Double = convert(number, baseUnitsArray, convertedUnitsArray)
+    open fun convertTo(number: Double): Double = convert(number, baseUnitsArray, convertedUnitsArray)
 
-    fun convertFrom(number: Double): Double = convert(number, convertedUnitsArray, baseUnitsArray)
+    open fun convertFrom(number: Double): Double = convert(number, convertedUnitsArray, baseUnitsArray)
 
-    fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>): Double {
-        if (numUnits == 1 && toUnits.first().type == Factors.UnitType.Temperature) {
+    open fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>): Double {
+        if (numberOfUnits == 1 && toUnits.first().type == Factors.UnitType.Temperature) {
             return TemperatureConverter.convert(number, toUnits.first().str, fromUnits.first().str)
         }
-        return (0 until numUnits).fold(number) { acc, i -> toUnits[i].convertTo(acc, fromUnits[i].str)}
+        return (0 until numberOfUnits).fold(number) { acc, i -> toUnits[i].convertTo(acc, fromUnits[i].str)}
     }
 
     data class Unit(val str: String, val power: Int) {
@@ -70,8 +79,6 @@ class UnitConverter(val baseUnits: String) {
 
         val type = str.unitType()
     }
-
-
 
     object Factors {
         enum class UnitType {

@@ -20,7 +20,7 @@ object Globals {
     val sigFigs = 3
     val mathContext = MathContext(sigFigs)
     val formatter = DecimalFormat("0.##E0")
-
+    var density = 0f
 }
 
 fun Any.toast(context: Context) {
@@ -30,7 +30,7 @@ fun Any.toast(context: Context) {
 enum class Tags {
     Default,
     UnitConverter,
-    NumberField,
+    Field,
     Error
 }
 
@@ -65,13 +65,13 @@ fun GridLayout.add(view: View, row: Int, column: Int) {
     addView(view, GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column)))
 }
 
-fun <T> Spinner.init(items: Array<T>, spinnerText: Int, itemSelected: (view: View?, position: Int) -> Unit) {
-    adapter = ArrayAdapter<T>(context, spinnerText , items)
+fun <T> Spinner.init(items: Array<T>, itemSelected: (view: View?, position: Int) -> Unit) {
+    adapter = ArrayAdapter<T>(context, R.layout.text_view_wrap, items)
     onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         var isEditable = true
         override fun onNothingSelected(view: AdapterView<*>?) {}
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            if(isEditable) {
+            if (isEditable) {
                 isEditable = false
                 itemSelected(view, position)
                 isEditable = true
@@ -80,26 +80,21 @@ fun <T> Spinner.init(items: Array<T>, spinnerText: Int, itemSelected: (view: Vie
     }
 }
 
-fun <T> createSpinner(context: Context, vararg items: T, itemSelected: (view: View?, position: Int) -> Unit): Spinner {
-    val spinner = Spinner(context)
-    spinner.init(items, R.layout.text_view_wrap, itemSelected)
-    return spinner
-}
+fun createUnitConverter(units: String, static: Boolean) = if (!units.isEmpty() && static) UnitConverter(units) else StaticUnitConverter
 
-fun createTextView(context: Context, text: String = "", size: Float = 15f): TextView {
-    val view = TextView(context)
-    view.text = text
-    view.textSize = size
-    view.setTextColor(Color.BLACK)
-    return view
-}
+fun createTextView(context: Context, text: String = "", size: Float = 15f) =
+        TextView(context).apply {
+            setText(text)
+            textSize = size
+            setTextColor(Color.BLACK)
+        }
 
-fun createEditText(context: Context, size: Float = 15f): EditText {
-    val view = EditText(context)
-    view.textSize = size
-    view.setTextColor(Color.BLACK)
-    return view
-}
+fun createEditText(context: Context, text: String, size: Float = 15f) =
+        EditText(context).apply {
+            setText(text)
+            textSize = size
+            setTextColor(Color.BLACK)
+        }
 
 class lateInit<T>(val constructor: () -> T) {
     companion object {
@@ -131,15 +126,18 @@ class Range(val min: Double, val max: Double) {
     }
 }
 
-fun Double.mapTo(from: Range, to: Range): Double{
+fun Int.dpToPx() = (this * Globals.density).toInt()
+
+fun Double.mapTo(from: Range, to: Range): Double {
     return from.mapTo(this, to)
 }
-fun Int.mapTo(from: Range, to: Range): Double{
+
+fun Int.mapTo(from: Range, to: Range): Double {
     return from.mapTo(this.toDouble(), to)
 }
 
 fun createTextWatcher(callback: () -> Unit): TextWatcher {
-    return object: TextWatcher {
+    return object : TextWatcher {
         var isEditable = true
         override fun afterTextChanged(p0: Editable?) {
             if (isEditable) {
@@ -148,6 +146,7 @@ fun createTextWatcher(callback: () -> Unit): TextWatcher {
                 isEditable = true
             }
         }
+
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -155,12 +154,12 @@ fun createTextWatcher(callback: () -> Unit): TextWatcher {
 }
 
 fun createLinearLayout(context: Context, first: View, second: View): LinearLayout {
-    val layout = LinearLayout(context)
-    layout.orientation = LinearLayout.HORIZONTAL
-    layout.addView(first)
-    with(second) {
-        setPadding(left + 10, top, right, bottom)
+    return LinearLayout(context).apply {
+        orientation = LinearLayout.HORIZONTAL
+        with(second) {
+            setPadding(left + 10, top, right, bottom)
+        }
+        addView(first)
+        addView(second)
     }
-    layout.addView(second)
-    return layout
 }

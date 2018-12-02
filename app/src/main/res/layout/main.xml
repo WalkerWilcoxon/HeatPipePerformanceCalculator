@@ -8,7 +8,9 @@
     tools:context="com.walker.heatpipeperformancecalculator.MainActivity">
 
     <LinearLayout
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/left_margin"
+        android:layout_marginRight="@dimen/left_margin"
         android:layout_height="200dp"
         android:orientation="vertical">
 
@@ -32,7 +34,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/left_margin"
             android:layout_marginTop="@dimen/top_margin"
             android:text="Inputs"
             android:textColor="@android:color/black"
@@ -44,29 +45,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/top_margin"
-            android:columnCount="2"
             android:orientation="vertical"></GridLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/left_margin"
             android:layout_marginTop="@dimen/top_margin"
             android:text="Outputs"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/outputLayout"
+        <GridLayout
+            android:id="@+id/outputGrid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/top_margin"
             android:orientation="horizontal">
-            <include layout="@layout/input_number_text"
-                xmlns:app="http://schemas.android.com/apk/res-auto" />
 
-        </LinearLayout>
+        </GridLayout>
 
 
         <LinearLayout
@@ -79,7 +76,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/left_margin"
                 android:layout_marginTop="@dimen/top_margin"
                 android:text="Graph"
                 android:textColor="@android:color/black"
@@ -94,7 +90,6 @@
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/left_margin"
                     android:gravity="center_vertical"
                     android:text="Input"
                     android:textColor="@android:color/black"
@@ -142,7 +137,6 @@
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/left_margin"
                     android:gravity="center_vertical"
                     android:text="Output"
                     android:textColor="@android:color/black"
@@ -183,12 +177,11 @@
                 android:id="@+id/graph"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginLeft="@dimen/left_margin"
                 android:layout_marginTop="@dimen/top_margin" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/unitsLayouts"
+            android:id="@+id/unitsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -197,7 +190,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/left_margin"
                 android:layout_marginTop="@dimen/top_margin"
                 android:text="Units"
                 android:textColor="@android:color/black"
@@ -206,6 +198,7 @@
 
             <GridLayout
                 android:id="@+id/unitsGrid"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></GridLayout>
         </LinearLayout>

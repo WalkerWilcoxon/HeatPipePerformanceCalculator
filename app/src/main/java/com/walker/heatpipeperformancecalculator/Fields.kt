@@ -1,43 +1,72 @@
 package com.walker.heatpipeperformancecalculator
 
 import android.content.Context
+import android.text.Editable
 import android.text.InputType
-import android.util.AttributeSet
+import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
 import android.widget.*
-import com.walker.heatpipeperformancecalculator.Field.Companion.formatter
-import com.walker.heatpipeperformancecalculator.MainActivity.Companion.numberFields
-import com.walker.heatpipeperformancecalculator.R.attr.name
-import org.mariuszgromada.math.mxparser.Function
+import kotlin.math.abs
 
 /**
  * Created by walker on 3/16/18.
  */
 
-abstract class Field<T>(context: Context, attrs: AttributeSet) : LinearLayout (context, attrs){
+abstract class Field(val name: String) {
     companion object {
         var updateOutputs = {}
         lateinit var getContext: () -> Context
-        val fields = ArrayList<Field<*>>()
+        val fields = ArrayList<Field>()
+        val context get() = getContext()
     }
 
+    val nameText: TextView = createTextView(context, name)
 
-    val name: String = attrs.getAttributeValue(R.styleable.Field_name)?: "No Name"
+    val views = arrayListOf<View>(nameText)
 
-    val nameText = findViewById<TextView>(R.id.field_text)
+    fun addToGrid(grid: GridLayout) {
+        val row = grid.rowCount
+        nameText.layoutParams = GridLayout.LayoutParams(GridLayout.spec(row, GridLayout.CENTER), GridLayout.spec(0,1, 2f))
 
-    abstract val fieldView: View
+        setLayoutParams(row)
+        views.forEach { grid.addView(it) }
+    }
 
-    abstract val value: T
+    abstract fun setLayoutParams(row: Int)
+
+    fun toggleVisibility() {
+        views.forEach { it.toggleVisibility() }
+    }
 
     init {
         fields.add(this)
     }
 
-    operator fun invoke() = value
+    inner class Menu<T>(context: Context, val items: Array<out T>, initialSelection: T = items[0], onSelect: (oldVal: T, newVale: T) -> Unit) : Spinner(context) {
+        init {
+            init(items) { _, position: Int ->
+                val oldVal = selected
+                selected = items[position]
+                onSelect(oldVal, selected)
+            }
+            textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+            gravity = Gravity.RIGHT
+            views += this
+        }
+
+        var selected = initialSelection
+        fun setSelection(selection: T) {
+            setSelection(items.indexOf(selection))
+        }
+
+        fun setLayoutParams(row: Int) {
+            layoutParams = GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(1, 2, GridLayout.LEFT, 2f))
+        }
+    }
 }
 
-abstract class Number(context: Context, attrs: AttributeSet) : Field<Double>(context, attrs) {
+abstract class Number(name: String, numberUnits: String, typeFlags: Int) : Field(name) {
     companion object {
         const val STATIC_UNITS = 1
         const val IS_IMPORTANT = 2
@@ -45,155 +74,145 @@ abstract class Number(context: Context, attrs: AttributeSet) : Field<Double>(con
 
     abstract val number: Double
 
-    val convertedNumberString: String get() = unitConverter.convertTo(number).toRoundedString()
+    val unitConverter = createUnitConverter(numberUnits, typeFlags and STATIC_UNITS == 0)
 
-    private val numberUnits: String = attrs.getAttributeValue(R.styleable.NumberField_numberUnits)
+    val convertedUnits get() = unitConverter.convertedUnits
 
-    val unitConverter = UnitConverter(numberUnits)
+    val convertedNumber get() = unitConverter.convertTo(number)
 
-    val textUnits get() = unitConverter.baseUnits
+    abstract fun changeUnit(oldUnit: String, newUnit: String)
 
-    val numberUnitsText = createTextView(context, numberUnits)
+    override fun toString() = name
 
-    val hasStaticUnits = attrs.getAttributeIntValue(R.styleable.NumberField_type, 0) and STATIC_UNITS != 0 || textUnits.isEmpty()
-
-    open fun changeUnit(oldUnit: String, newUnit: String) {
-        if (!hasStaticUnits) {
-            unitConverter.changeUnit(oldUnit, newUnit)
-            numberUnitsText.text = textUnits
-            updateNumberText()
-        }
-    }
-
-    abstract fun updateNumberText()
-
-    override fun toString() = name.toString()
-
-    override val value: Double
-        get() = unitConverter.convertTo(number)
+    operator fun invoke() = number
 }
 
-abstract class TextNumberField(context: Context, attrs: AttributeSet) : Number(context, attrs) {
+abstract class NumberText(name: String, numberUnits: String, typeFlags: Int) : Number(name, numberUnits, typeFlags) {
+    val unitText = createTextView(context, numberUnits).also {
+        views += it
+    }
+
     abstract val numberText: TextView
-    abstract val numberLayout: LinearLayout
-    override val fieldView: LinearLayout get() = numberLayout
+
+    final override fun setLayoutParams(row: Int) {
+        numberText.layoutParams = GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(1, 1, GridLayout.RIGHT, 1f))
+        unitText.layoutParams = GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(2, 1, GridLayout.LEFT, 1f))
+    }
 }
 
 interface Input
 
-class InputNumberText(context: Context, attrs: AttributeSet) : TextNumberField(context, attrs), Input {
-    val initialValue: Double = attrs.getAttributeFloatValue(R.styleable.InputNumberTextField_initialValue, 0f).toDouble()
-    val minValue: Double = attrs.getAttributeFloatValue(R.styleable.InputNumberTextField_minValue, 0f).toDouble()
-    val maxValue: Double = attrs.getAttributeFloatValue(R.styleable.InputNumberTextField_maxValue, 0f).toDouble()
-    val inputListener = {
-        val textNumber = numberText.text.toString().toDoubleOrNull()
-        if (textNumber != null) {
-            number = unitConverter.convertTo(textNumber).clamp(minValue, maxValue)
-            updateOutputs()
-        } else {
-            "Please enter a number".toast(context)
-        }
-    }
-
+class InputNumberText(name: String, numberUnits: String, initialValue: Double, val maxValue: Double, val minValue: Double, typeFlags: Int = 0) : NumberText(name, numberUnits, typeFlags), Input {
     override var number: Double = initialValue
 
     val convertedMaxValue get() = unitConverter.convertTo(maxValue)
     val convertedMinValue get() = unitConverter.convertTo(minValue)
 
-    override val numberText: EditText = createEditText(context)
+    override val numberText: EditText = createEditText(context, initialValue.toRoundedString()).also {
+        views += it
+    }
 
-    override val numberLayout = createLinearLayout(context, numberText, numberUnitsText)
+    override fun changeUnit(oldUnit: String, newUnit: String) {
+        if (!unitConverter.isStatic) {
+            unitConverter.changeUnit(oldUnit, newUnit)
+            unitText.text = convertedUnits
+            numberText.setText(convertedNumber.toRoundedString())
+        }
+    }
 
     init {
         numberText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or if (minValue < 0.0) InputType.TYPE_NUMBER_FLAG_SIGNED else 0
-        updateNumberText()
-        numberText.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-            override fun onLayoutChange(view: View?, p1: Int, p2: Int, p3: Int, p4: Int, p5: Int, p6: Int, p7: Int, p8: Int) {
-
+        numberText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var convertedNumber = numberText.text.toString().toDoubleOrNull()
+                if (convertedNumber != null) {
+                    if (convertedNumber < convertedMinValue || convertedMaxValue < convertedNumber) {
+                        convertedNumber = convertedNumber.clamp(convertedMinValue, convertedMaxValue)
+                        numberText.setText(convertedNumber.toString())
+                    }
+                    number = unitConverter.convertFrom(convertedNumber)
+                    updateOutputs()
+                } else {
+                    "Please enter a number".toast(context)
+                }
             }
         })
     }
-
-    override fun updateNumberText() {
-        numberText.setText(convertedNumberString)
-    }
 }
 
+interface Output {
+    fun updateNumberText()
+}
 
-class OutputNumberText(context: Context, attrs: AttributeSet) : TextNumberField(context, attrs) {
-    val equationString = attrs.getAttributeValue(R.styleable.OutputNumberText_equation)
-    val equation = Function(equationString)
-    override val number get() = equation.calculate()
-    override val numberText = createTextView(context)
-    val isImportant = attrs.getAttributeIntValue(R.styleable.NumberField_type, 0) and Number.IS_IMPORTANT != 0
-    override val numberLayout = createLinearLayout(context, numberText, numberUnitsText)
+class OutputNumber(name: String, units: String, typeFlags: Int = 0, val formula: () -> Double) : NumberText(name, units, typeFlags), Output {
+    override val number get() = formula()
+    override val numberText = createTextView(context).also {
+        views += it
+    }
+    val isImportant = typeFlags and Number.IS_IMPORTANT != 0
+
+    override fun changeUnit(oldUnit: String, newUnit: String) {
+        if (!unitConverter.isStatic) {
+            unitConverter.changeUnit(oldUnit, newUnit)
+            unitText.text = convertedUnits
+            numberText.text = convertedNumber.toFormattedString()
+        }
+    }
 
     override fun updateNumberText() {
-        numberText.text = unitConverter.convertTo(number).toFormattedString()
+        numberText.text = number.toFormattedString()
     }
 
     fun isDependantOn(inputField: InputNumberText): Boolean {
-
+        val initial = inputField.number
+        inputField.number = inputField.minValue
+        val min = formula()
+        inputField.number = (inputField.minValue + inputField.maxValue) / 2
+        val mid = formula()
+        inputField.number = inputField.maxValue
+        val max = formula()
+        inputField.number = initial
+        return abs(max - min) < 0.01 && abs(max - mid) < 0.01 && abs(mid - min) < 0.01
     }
 }
 
-interface Menu<T> {
-    val menu: Spinner
-    var selected: T
-    val items: Array<out T>
-    fun createMenu(context: Context, onSelect: (oldVal: T) -> Unit): Spinner {
-        val spinner = createSpinner(context, *items) { _, position: Int ->
-            val oldVal = selected
-            selected = items[position]
-            onSelect(oldVal)
-        }
-        return spinner
+class InputEnumeration(name: String, vararg items: String) : Field(name), Input {
+    val menu = Menu(context, items) { _, _ ->
+        updateOutputs()
     }
 
-    fun setSelection(selection: T) {
-        menu.setSelection(items.indexOf(selection))
-    }
+    override fun setLayoutParams(row: Int) = menu.setLayoutParams(row)
+
+    operator fun invoke() = menu.selected
 }
 
-class InputWordMenu(context: Context, attrs: AttributeSet) : Field(context, attrs), Menu<String>, Input {
-    override val menu = createMenu(context) { Field.updateOutputs() }
+class InputNumberMenu(name: String, units: String, initial: Double, vararg val items: Double, typeFlags: Int = 0) : Number(name, units, typeFlags), Input {
+    override var number = initial
 
-    override val items: Array<String> = context.obtainStyledAttributes(attrs, R.styleable.InputWordMenuField).run { resources.getStringArray(getResourceId(R.styleable.InputWordMenuField_items, 0)) }
+    val menu = Menu(context, items.toTypedArray()) { _, _ ->
+        Field.updateOutputs()
+    }
+
     init {
-        nameText.text = name
-        menu.setPadding(menu.paddingLeft + 160, menu.paddingTop, 0, menu.paddingBottom)
+        menu.setSelection(initial)
     }
 
-    override var selected = items[0]
+    override fun changeUnit(oldUnit: String, newUnit: String) {
+        unitConverter.changeUnit(oldUnit, newUnit)
+        menu.adapter = ArrayAdapter<String>(context, R.layout.text_view_wrap, items.map { "${unitConverter.convertTo(it).toRoundedString()} ${convertedUnits}" })
+    }
 
-    override val fieldView: View get() = menu
-
-    operator fun invoke() = selected
+    override fun setLayoutParams(row: Int) = menu.setLayoutParams(row)
 }
 
-class InputNumberMenuField(context: Context, attrs: AttributeSet) : Number(context, attrs), Menu<Double>, Input {
-    override val items = context.obtainStyledAttributes(attrs, R.styleable.InputNumberMenuField).run { resources.getStringArray(getResourceId(R.styleable.InputNumberMenuField_items, 0)) }.map {it.toDouble()}.toTypedArray()
-    override var number: Double = items[0]
-    override var menu = createMenu(context) { Field.updateOutputs() }
-    override val fieldView get() = menu
-    override var selected: Double
-        get() = number
-        set(value) {
-            number = value
-        }
-
-    override fun updateNumberText() {
-        menu.adapter = ArrayAdapter<String>(context, R.layout.text_view_wrap, items.map { "${unitConverter.convertTo(it).toRoundedString()} $textUnits" })
-    }
-}
-
-class UnitMenuField(context: Context, attrs: AttributeSet) : Field(context, attrs), Menu<String> {
-    override val items: Array<out String> = context.obtainStyledAttributes(attrs, R.styleable.InputWordMenuField).run { resources.getStringArray(getResourceId(R.styleable.InputWordMenuField_items, 0)) }
-    override val fieldView: View get() = menu
-    override var selected: String = items[0]
-    override val menu = createMenu(context) { oldUnit ->
-        numberFields.forEach { field ->
-            field.changeUnit(oldUnit, selected)
+class UnitMenu(name: String, val baseUnit: String, items: Array<String>) : Field(name) {
+    val menu = Menu(context, items) { oldVal, newVal ->
+        MainActivity.numbers.forEach { field ->
+            field.changeUnit(oldVal, newVal)
         }
     }
+
+    override fun setLayoutParams(row: Int) = menu.setLayoutParams(row)
 }
