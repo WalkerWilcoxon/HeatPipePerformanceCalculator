@@ -46,15 +46,17 @@ class MainActivity : AppCompatActivity() {
     val L_cond by lateInit { InputNumberText("Condenser Length", "m", 0.06, 0.10, 0.01) }
     val D_hp by lateInit {
         InputNumberMenu("Heat Pipe Diameter", "m", 0.006,
+                arrayOf(
                 D_hp_1,
                 D_hp_2,
                 D_hp_3,
                 D_hp_4,
                 D_hp_5,
                 D_hp_6)
+        )
     }
     val power by lateInit { InputNumberText("Input Power", "W", 10.0, 100.0, 1.0) }
-    val powder by lateInit { InputEnumeration("Powder", "Blue", "Red", "Blue", "Orange", "Green", "White") }
+    val powder by lateInit { InputEnumeration("Powder", "Blue", arrayOf("Blue", "Red", "Blue", "Orange", "Green", "White")) }
     val D_man by lateInit {
         OutputNumber("Mandrel Diameter", "m") {
             when (D_hp()) {

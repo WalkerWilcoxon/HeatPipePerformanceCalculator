@@ -43,7 +43,7 @@ abstract class Field(val name: String) {
         fields.add(this)
     }
 
-    inner class Menu<T>(context: Context, val items: Array<out T>, initialSelection: T = items[0], onSelect: (oldVal: T, newVale: T) -> Unit) : Spinner(context) {
+    inner class Menu<T>(context: Context, initialSelection: T, val items: Array<out T>, onSelect: (oldVal: T, newVale: T) -> Unit) : Spinner(context) {
         init {
             init(items) { _, position: Int ->
                 val oldVal = selected
@@ -130,7 +130,7 @@ class InputNumberText(name: String, numberUnits: String, initialValue: Double, v
                 if (convertedNumber != null) {
                     if (convertedNumber < convertedMinValue || convertedMaxValue < convertedNumber) {
                         convertedNumber = convertedNumber.clamp(convertedMinValue, convertedMaxValue)
-                        numberText.setText(convertedNumber.toString())
+                        numberText.setText(convertedNumber.toRoundedString())
                     }
                     number = unitConverter.convertFrom(convertedNumber)
                     updateOutputs()
@@ -178,8 +178,8 @@ class OutputNumber(name: String, units: String, typeFlags: Int = 0, val formula:
     }
 }
 
-class InputEnumeration(name: String, vararg items: String) : Field(name), Input {
-    val menu = Menu(context, items) { _, _ ->
+class InputEnumeration(name: String, initialSelection: String, items: Array<String>) : Field(name), Input {
+    val menu = Menu(context, initialSelection, items) { _, _ ->
         updateOutputs()
     }
 
@@ -188,10 +188,10 @@ class InputEnumeration(name: String, vararg items: String) : Field(name), Input 
     operator fun invoke() = menu.selected
 }
 
-class InputNumberMenu(name: String, units: String, initial: Double, vararg val items: Double, typeFlags: Int = 0) : Number(name, units, typeFlags), Input {
+class InputNumberMenu(name: String, units: String, initial: Double, val items: Array<Double>, typeFlags: Int = 0) : Number(name, units, typeFlags), Input {
     override var number = initial
 
-    val menu = Menu(context, items.toTypedArray()) { _, _ ->
+    val menu = Menu(context, initial, items) { _, _ ->
         Field.updateOutputs()
     }
 
@@ -207,8 +207,8 @@ class InputNumberMenu(name: String, units: String, initial: Double, vararg val i
     override fun setLayoutParams(row: Int) = menu.setLayoutParams(row)
 }
 
-class UnitMenu(name: String, val baseUnit: String, items: Array<String>) : Field(name) {
-    val menu = Menu(context, items) { oldVal, newVal ->
+class UnitMenu(name: String, baseUnit: String, units: Array<String>) : Field(name) {
+    val menu = Menu(context, baseUnit, units) { oldVal, newVal ->
         MainActivity.numbers.forEach { field ->
             field.changeUnit(oldVal, newVal)
         }
