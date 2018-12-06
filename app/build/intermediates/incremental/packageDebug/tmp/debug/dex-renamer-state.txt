@@ -1,0 +1,4 @@
+#Wed Dec 05 20:05:40 CST 2018
+base.0=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
