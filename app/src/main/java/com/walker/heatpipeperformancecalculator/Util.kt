@@ -1,9 +1,11 @@
 package com.walker.heatpipeperformancecalculator
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.view.View
 import android.widget.*
 import com.walker.heatpipeperformancecalculator.Globals.formatter
@@ -14,7 +16,6 @@ import java.text.DecimalFormat
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.reflect.KProperty
 
 object Globals {
     val sigFigs = 3
@@ -80,7 +81,12 @@ fun <T> Spinner.init(items: Array<T>, itemSelected: (view: View?, position: Int)
     }
 }
 
-fun createUnitConverter(units: String, static: Boolean) = if (!units.isEmpty() && static) UnitConverter(units) else StaticUnitConverter
+fun createUnitConverter(units: String, static: Boolean) = if (!units.isEmpty() && static) UnitConverter(units) else null
+
+fun UnitConverter?.convertTo(number: Double) = this?.convertTo(number) ?: number
+
+fun UnitConverter?.convertFrom(number: Double) = this?.convertFrom(number) ?: number
+
 
 fun createTextView(context: Context, text: String = "", size: Float = 15f) =
         TextView(context).apply {
@@ -96,24 +102,10 @@ fun createEditText(context: Context, text: String, size: Float = 15f) =
             setTextColor(Color.BLACK)
         }
 
-class lateInit<T>(val constructor: () -> T) {
-    companion object {
-        val arrayList = ArrayList<lateInit<Any>>()
-        fun inialize() {
-            arrayList.forEach {
-                it.value = it.constructor()
-            }
-        }
-    }
-
-    init {
-        arrayList.add(this as lateInit<Any>)
-    }
-
-    var value: T? = null
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>): T {
-        return value!!
-    }
+inline fun AttributeSet.setValues(context: Context, attrs: IntArray, valueSetter: TypedArray.() -> Unit) {
+    val a = context.obtainStyledAttributes(this, attrs)
+    a.valueSetter()
+    a.recycle()
 }
 
 class Range(val min: Double, val max: Double) {

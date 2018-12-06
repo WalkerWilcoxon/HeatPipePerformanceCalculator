@@ -15,60 +15,50 @@ private fun String.unitType(): UnitConverter.Factors.UnitType {
     throw NoSuchElementException("Unit type of $this could not be determined")
 }
 
-object StaticUnitConverter: UnitConverter("") {
-    override fun changeUnit(oldUnit: String, newUnit: String) {}
-    override fun convertTo(number: Double) = number
-    override fun convertFrom(number: Double) = number
-    override fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>) = number
-    override val isStatic = true
-}
 
-open class UnitConverter(val baseUnits: String) {
+class UnitConverter(val baseUnits: String) {
     private val baseUnitsArray = ArrayList<Unit>()
     var convertedUnits = baseUnits
     private val convertedUnitsArray = ArrayList<Unit>()
-    open val isStatic = false
 
     init {
-        val splitUnits = baseUnits.split('*', '/')
-        splitUnits.forEachIndexed { index, unitStr ->
-            if (unitStr in Factors.allUnits) {
-                
-                val unitIndex = baseUnits.indexOf(unitStr)
-                var power: Int = when {
-                    unitIndex == 0 -> 1
-                    baseUnits[unitIndex - 1] == '/' -> -1
-                    else -> 1
-                }
-                if ("^" in unitStr) {
-                    power *= unitStr[unitStr.indexOf("^") + 1].toInt()
-                }
-                val unit = Unit(unitStr, power)
-                baseUnitsArray += unit
-                convertedUnitsArray += unit
-            }
+        val regex = Regex("(/)?(\\w)+(?:\\^(\\d))?")
+        val matches = regex.findAll(baseUnits)
+        matches.forEach { match ->
+            val (div, unit, powerStr) = match.destructured
+            var power = if(powerStr == "") 1 else powerStr.toInt()
+            if(div == "/")
+                power *= -1
+            baseUnitsArray += Unit(unit, power)
         }
+        convertedUnitsArray += baseUnitsArray
     }
 
-    private val numberOfUnits = baseUnitsArray.size
+    private val numUnits = baseUnitsArray.size
 
-    open fun changeUnit(oldUnit: String, newUnit: String) {
+    fun changeUnit(oldUnit: String, newUnit: String) {
         val index = baseUnitsArray.map { it.str }.indexOf(oldUnit)
         if (index != -1) {
             convertedUnitsArray[index] = Unit(newUnit, convertedUnitsArray[index].power)
             convertedUnits = convertedUnits.replace(oldUnit, newUnit)
         }
+        onChangeListener()
+    }
+    private var onChangeListener: () -> kotlin.Unit = {}
+
+    fun setOnChangeListener(listener: () -> kotlin.Unit ){
+        onChangeListener = listener
     }
 
-    open fun convertTo(number: Double): Double = convert(number, baseUnitsArray, convertedUnitsArray)
+    fun convertTo(number: Double): Double = convert(number, baseUnitsArray, convertedUnitsArray)
 
-    open fun convertFrom(number: Double): Double = convert(number, convertedUnitsArray, baseUnitsArray)
+    fun convertFrom(number: Double): Double = convert(number, convertedUnitsArray, baseUnitsArray)
 
-    open fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>): Double {
-        if (numberOfUnits == 1 && toUnits.first().type == Factors.UnitType.Temperature) {
+    fun convert(number: Double, toUnits: ArrayList<Unit>, fromUnits: ArrayList<Unit>): Double {
+        if (numUnits == 1 && toUnits.first().type == Factors.UnitType.Temperature) {
             return TemperatureConverter.convert(number, toUnits.first().str, fromUnits.first().str)
         }
-        return (0 until numberOfUnits).fold(number) { acc, i -> toUnits[i].convertTo(acc, fromUnits[i].str)}
+        return (0 until numUnits).fold(number) { acc, i -> toUnits[i].convertTo(acc, fromUnits[i].str)}
     }
 
     data class Unit(val str: String, val power: Int) {

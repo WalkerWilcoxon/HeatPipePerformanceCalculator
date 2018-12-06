@@ -9,9 +9,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_marginLeft="@dimen/left_margin"
         android:layout_marginRight="@dimen/left_margin"
-        android:layout_height="200dp"
         android:orientation="vertical">
 
         <ImageView
@@ -40,12 +40,74 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <GridLayout
-            android:id="@+id/inputGrid"
+        <LinearLayout
+            android:id="@+id/inputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/top_margin"
-            android:orientation="vertical"></GridLayout>
+            android:orientation="vertical">
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="20.0"
+                app:maxValue="500.0"
+                app:minValue="10.0"
+                app:name="Temperature"
+                app:symbol="temp"
+                app:units="°C" />
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="90.0"
+                app:maxValue="90.0"
+                app:minValue="90.0"
+                app:name="Operating Angle"
+                app:symbol="theta"
+                app:units="°" />
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="0.15"
+                app:maxValue="0.50"
+                app:minValue="0.01"
+                app:name="Heat Pipe Length"
+                app:symbol="L_tot"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="0.02"
+                app:maxValue="0.10"
+                app:minValue="0.01"
+                app:name="Evaporator Length"
+                app:symbol="L_evap"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="0.06"
+                app:maxValue="0.10"
+                app:minValue="0.01"
+                app:name="Condenser Length"
+                app:symbol="L_cond"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.InputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:initialValue="10.0"
+                app:maxValue="100.0"
+                app:minValue="1.0"
+                app:name="Input Power"
+                app:symbol="power"
+                app:units="W" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -56,14 +118,277 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <GridLayout
-            android:id="@+id/outputGrid"
+        <LinearLayout
+            android:id="@+id/outputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/top_margin"
             android:orientation="horizontal">
 
-        </GridLayout>
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="
+                    when (D_hp) {
+                    D_hp_1 -> D_man_1
+                    D_hp_2 -> D_man_2
+                    D_hp_3 -> D_man_3
+                    D_hp_4 -> D_man_4
+                    D_hp_5 -> D_man_5
+                    D_hp_6 -> D_man_6
+                    else -> throw NullPointerException('Unknown D_hp value:${D_hp}')"
+                app:name="Mandrel Diameter"
+                app:symbol="D_man"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="if (D_hp &lt;= 0.006) 0.0003 else 0.0005"
+                app:name="Wall Thickness"
+                app:symbol="t_wall"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="(D_hp - 2 * t_wall - D_man) / 2"
+                app:name="Wick Thickness"
+                app:symbol="t_wick"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" R_cont + (t_wall + t_wick / Poros) / k_copper"
+                app:name="Circumferential Resistance"
+                app:symbol="R_circ"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="D_hp - 2 * t_wall - 2 * t_wick) / 2.0"
+                app:name="Radius of Vapor Space"
+                app:symbol="r_vap"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="Math.PI * (Math.pow(0.5 * D_hp - t_wall, 2.0) - Math.pow(r_vap, 2.0))"
+                app:name="Cross Sectional Area"
+                app:symbol="A_wick"
+                app:units="m^2" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" L_tot - L_evap - L_cond"
+                app:name="Adiabatic Length"
+                app:symbol="L_adia"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" L_adia + (L_evap + L_cond) / 2.0"
+                app:name="Effective Length"
+                app:symbol="L_eff"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="
+                    (powder) {
+                        Blue -> 0.000000000086
+                        Red -> 0.0000000000094658
+                        Orange -> 0.000000000014269
+                        Green -> 0.00000000000715
+                        White -> 0.000000000013747
+                        else -> throw Exception('Permeability not found')"
+                app:name="Permeability"
+                app:symbol="perm"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="L_eff / k_copper / (Math.PI / 4 * (D_hp * D_hp - r_vap * r_vap))"
+                app:name="Conduction Resistance"
+                app:symbol="R_conduct"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="when (powder) {
+                    Blue -> 0.0000608
+                    Red -> 0.000023524
+                    Orange -> 0.000031681
+                    Green -> 0.0000289
+                    White -> 0.000032101
+                    else -> throw Exception('Powder Radius not found'')"
+                app:name="Powder Radius"
+                app:symbol="r_powder"
+                app:units="m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" (R_cont + ((t_wall + t_wick / Poros) / k_copper)) / (PI * D_hp * L_cond * 0.5)"
+                app:name="Condenser Resistance"
+                app:symbol="R_condense"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" (R_cont + ((t_wall + t_wick / Poros) / k_copper)) / (PI * D_hp * L_evap * 0.33)"
+                app:name="Evaporator Resistance"
+                app:symbol="R_evap"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" PI * Math.pow(r_vap, 2.0) * 100"
+                app:name="Axial Resistance"
+                app:symbol="R_axial"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="R_condense + R_evap + R_axial"
+                app:important="true"
+                app:name="Heatpipe Thermal Resistance"
+                app:symbol="R_total"
+                app:units="°C/W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="Math.pow(10.0, 8.07131 - 1730.63 / (233.426 + temp)) * 133.322"
+                app:name="Vapor Pressure"
+                app:symbol="P_vapor"
+                app:units="kg^3" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="0.14395 / Math.pow(0.0112, 1 + Math.pow(1 - T_k / 649.727, 0.05107))"
+                app:name="Liquid Density"
+                app:symbol="dens_liquid"
+                app:units="N/s" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="Math.exp(-3.7188 + 578.99 / (T_k - 137.546)) / 1000"
+                app:name="Liquid Viscosity"
+                app:symbol="vis_liquid"
+                app:units="kg^3" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" 0.0022 / T_k * Math.exp(77.345 + 0.0057 * T_k - 7235 / T_k) / Math.pow(T_k, 8.2)"
+                app:name="Vapor Density"
+                app:symbol="dens_vapor"
+                app:units="N/s" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="1.512 * Math.pow(T_k, 1.5) / 2.0 / (T_k + 120) / 1000000.0"
+                app:name="Vapor Viscosity"
+                app:symbol="vis_vapor"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="235.8 * Math.pow(1 - T_k / 647.098, 1.256) * (1 - 0.625 * (1 - T_k / 647.098)) / 1000"
+                app:name="Surface Tension"
+                app:symbol="tens_surface"
+                app:units="N/m" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="(2500.8 - 2.36 * temp + 0.0016 * temp * temp - 0.00006 * Math.pow(temp, 3.0)) * 1000"
+                app:name="Latent Heat"
+                app:symbol="Q_latent"
+                app:units="J/kg" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="-0.000007933 * T_k * T_k + 0.006222 * T_k - 0.5361"
+                app:name="Liquid Conductivity"
+                app:symbol="k_liquid"
+                app:units="W/m/°C" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" 2.0 * tens_surface / r_powder"
+                app:name="Max Capillary Pressure"
+                app:symbol="P_max_cap"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="dens_liquid * g * L_tot * -Math.sin(theta * Math.PI / 180)"
+                app:name="Pressure Drop of Gravity"
+                app:symbol="P_gravity_drop"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation=" (P_max_cap - P_gravity_drop) / (L_eff * (8 * vis_vapor / (dens_vapor * Math.PI * Math.pow(r_vap, 4.0) * Q_latent) + vis_liquid / (dens_liquid * perm * A_wick * Q_latent)))"
+                app:important="true"
+                app:name="Heat Limit"
+                app:symbol="Q_limit"
+                app:units="W" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="8.0 * vis_vapor * Q_limit * L_eff / (dens_vapor * Math.PI * Math.pow(r_vap, 4.0) * Q_latent)"
+                app:name="Pressure Drop of Vapor"
+                app:symbol="P_vapor_drop"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="vis_liquid * L_eff * Q_limit / (dens_liquid * perm * A_wick * Q_latent)"
+                app:name="Pressure Drop of Liquid"
+                app:symbol="P_liquid_drop"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="P_max_cap - P_gravity_drop - P_vapor_drop - P_liquid_drop"
+                app:name="Capillary Pressure Remaining"
+                app:symbol="P_cap_rem"
+                app:units="Pa" />
+
+            <com.walker.heatpipeperformancecalculator.OutputNumberText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:equation="Math.ceil(power / Q_limit)"
+                app:important="true"
+                app:name="Required Heat Pipes"
+                app:symbol="n_hp" />
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -198,9 +523,9 @@
 
             <GridLayout
                 android:id="@+id/unitsGrid"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></GridLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></GridLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -228,7 +553,6 @@
                 android:text="Show Unit Converter" />
 
             <CheckBox
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
