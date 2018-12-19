@@ -6,10 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import com.walker.heatpipeperformancecalculator.R.layout.main
 import kotlinx.android.synthetic.main.main.*
-import java.math.BigDecimal
+import org.mariuszgromada.math.mxparser.Tutorial
 
 class MainActivity : AppCompatActivity() {
     val axial_R = 0.000001
@@ -32,22 +31,25 @@ class MainActivity : AppCompatActivity() {
     val D_hp_5 = 0.008
     val D_hp_6 = 0.01
 
-    val D_hp: InputNumberText = TODO()
+    lateinit var D_hp: InputNumberText //= TODO()
 
     //val T_k get() = UnitConverter.TemperatureConverter.convert(temp(), "°C", "K")
 
     val context = this
 
     companion object {
-        lateinit var numbers: Array<NumberField>
-        lateinit var inputs: Array<Field>
-        lateinit var inputNumbers: Array<InputNumberText>
-        lateinit var outputs: Array<OutputNumberText>
-        lateinit var units: Array<Field>//UnitMenu>
+        lateinit var numbers: List<NumberView>
+        lateinit var inputs: List<NamedView>
+        lateinit var inputNumbers: List<InputNumberText>
+        lateinit var outputs: List<OutputNumberText>
+        lateinit var units: List<NamedView>//UnitMenu>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Tutorial.main(arrayOf())
+
         setContentView(main)
 
         Globals.density = DisplayMetrics().also { windowManager.defaultDisplay.getMetrics(it) }.density
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                 updateGraph()
             }
         })
+
         endRangeText.addTextChangedListener(createTextWatcher {
             if (endRangeText.text.toString().toDoubleOrNull() != null) {
                 if (endNum > selectedInputField.convertedMaxValue) {
@@ -91,34 +94,31 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        graph.viewport.isScalable = true
-        graph.viewport.isXAxisBoundsManual = true
-        graph.viewport.isYAxisBoundsManual = true
-
+        with(graph.viewport) {
+            isScalable = true
+            isXAxisBoundsManual = true
+            isYAxisBoundsManual = true
+        }
         changeUnit("m", "mm")
 
         updateGraphOutputs()
 
-        Field.updateOutputs()
+        NamedView.updateOutputs()
     }
 
     private fun initializeFields() {
 
-        val fields = Array(inputLayout.childCount) { inputLayout.getChildAt(it) as Field}
-        numbers = fields.filter { it is NumberField }.map { it as NumberField }.toTypedArray()
-        inputs = fields.filter { it is Input }.toTypedArray()
-        inputNumbers = fields.filter { it is InputNumberText }.map { it as InputNumberText }.toTypedArray()
-        outputs = fields.filter { it is OutputNumberText }.map { it as OutputNumberText }.toTypedArray()
+        inputs = inputLayout.getAllChildren()
+        numbers = inputs.filter { it is NumberView }.map { it as NumberView }
+        inputNumbers = inputs.filter { it is InputNumberText }.map { it as InputNumberText }
+        outputs = outputLayout.getAllChildren()
 
-        inputs.sortWith(compareBy { it.nameText.text.toString() })
-        outputs.sortWith(compareBy(OutputNumberText::isImportant, { it.nameText.text.toString() }))
+        inputs.sortedBy { it.nameText.text.toString() }
+        outputs.sortedWith(compareBy(OutputNumberText::isImportant, { it.nameText.text.toString() }))
 
-        UnitConverter.Factors.units.forEach {
-            TODO()//UnitMenu(it.key.name, baseUnits[it.key]!!, it.value.toTypedArray()).addToGrid(unitsGrid)
-        }
-        units = TODO()//fields.filter { it is UnitMenu }.map { it as UnitMenu }.toTypedArray()
+        units = unitsLayout.getAllChildren()
 
-        Field.updateOutputs = {
+        NamedView.updateOutputs = {
             outputs.forEach {
                 it.updateNumberText()
             }
@@ -130,12 +130,13 @@ class MainActivity : AppCompatActivity() {
     var startNum
         get() = startRangeText.text.toString().toDouble()
         set(value) {
-            (startRangeText as TextView).text = value.toString()
+            startRangeText.setText(value.toString())
         }
+
     var endNum
         get() = endRangeText.text.toString().toDouble()
         set(value) {
-            (endRangeText as TextView).text = BigDecimal(value).stripTrailingZeros().toPlainString()
+            endRangeText.setText( value.toRoundedString())
         }
 
     val selectedInputField get() = inputSpinner.selectedItem as InputNumberText
@@ -182,7 +183,7 @@ class MainActivity : AppCompatActivity() {
 //                yMin = min(yMin, outputNum)
 //            }
 //            val series = LineGraphSeries<DataPoint>(dataPoints.toTypedArray())
-//            series.title = "${D_hp.convertedNumber.toRoundedString()} ${D_hp.convertedUnits}"
+//            series.title = "${D_hp.convertedNumber.toRoundedString()} ${D_hp.toUnits}"
 //            series.color = color
 //            graph.addSeries(series)
 //
@@ -208,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         if (isUpdatingGraphs) {
             isUpdatingGraphs = false
             val showAllProps = showAllPropertiesCheckBox.isChecked
-            outputSpinner.adapter = ArrayAdapter<NumberField>(this, R.layout.text_view_wrap, outputs.filter { (if (!showAllProps) it.isImportant else true) && it.isDependantOn(selectedInputField) })
+            outputSpinner.adapter = ArrayAdapter<NumberView>(this, R.layout.text_view_wrap, outputs.filter { (if (!showAllProps) it.isImportant else true) && it.isDependantOn(selectedInputField) })
             isUpdatingGraphs = true
         }
     }
@@ -218,7 +219,7 @@ class MainActivity : AppCompatActivity() {
             field.changeUnit(oldUnit, newUnit)
         }
         TODO("Uncomment code")
-        //units.find { it.name.baseUnitName() == oldUnit }!!.menu.setSelection(newUnit)
+        //unitStrings.find { it.name.baseUnitName() == oldUnit }!!.menu.setSelection(newUnit)
         endRangeUnits.text = selectedInputField.convertedUnits
         startRangeUnits.text = selectedInputField.convertedUnits
     }
@@ -231,7 +232,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun toggleUnits(view: View?) {
-        unitsLayout.toggleVisibility()
+        unitsVisibilityLayout.toggleVisibility()
     }
 
     fun toggleGraph(view: View?) {

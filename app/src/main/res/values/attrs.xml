@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Field">
+    <declare-styleable name="NamedView">
         <attr name="name" format="string" />
         <attr name="symbol" format="string" />
     </declare-styleable>
-    <declare-styleable name="NumberField">
+    <declare-styleable name="NumberView">
         <attr name="units" format="string"/>
         <attr name="staticUnits" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="InputNumberText">
-        <attr name="initialValue" format="float"/>
-        <attr name="minValue" format="float"/>
-        <attr name="maxValue" format="float"/>
+        <attr name="initial" format="float"/>
+        <attr name="min" format="float"/>
+        <attr name="max" format="float"/>
     </declare-styleable>
     <declare-styleable name="InputEnumeration">
-        <attr name="items" format="string"/>
-        <attr name="initialValue" format="string"/>
+        <attr name="initialEnum" format="string"/>
+        <attr name="enums" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberMenu">
+        <attr name="initialNum" format="float"/>
+        <attr name="numbers" format="string"/>
     </declare-styleable>
     <declare-styleable name="OutputNumberText">
         <attr name="equation" format="string"/>
         <attr name="important" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="UnitMenu">
+        <attr name="base" format="string"/>
+        <attr name="conversions" format="string"/>
     </declare-styleable>
 </resources>
