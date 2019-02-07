@@ -1,5 +1,4 @@
 <resources>
     <dimen name="top_margin">10dp</dimen>
     <dimen name="left_margin">20dp</dimen>
-    <dimen name="spinner_left_margin">10dp</dimen>
 </resources>

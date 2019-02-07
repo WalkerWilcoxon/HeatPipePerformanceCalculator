@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">Heat Pipe Performance Calculator</string>
-    <string name="action_input_output">Calculator</string>
-    <string name="action_graphs">Graphs</string>
-    <string name="button_calc">Calculate</string>
 </resources>

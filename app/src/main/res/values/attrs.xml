@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NamedView">
+        <attr name="name" format="string" />
+    </declare-styleable>
+    <declare-styleable name="NumberView">
+        <attr name="units" format="string"/>
+        <attr name="staticUnits" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberText">
+        <attr name="initial" format="float"/>
+        <attr name="min" format="float"/>
+        <attr name="max" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="InputEnumeration">
+        <attr name="initialEnum" format="string"/>
+        <attr name="enums" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberMenu">
+        <attr name="initialNum" format="string"/>
+        <attr name="numbers" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="OutputNumberText">
+        <attr name="equation" format="string"/>
+        <attr name="important" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="UnitMenu">
+        <attr name="base" format="string"/>
+        <attr name="conversions" format="string"/>
+    </declare-styleable>
+</resources>
