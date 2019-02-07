@@ -2,7 +2,6 @@
 <resources>
     <declare-styleable name="NamedView">
         <attr name="name" format="string" />
-        <attr name="symbol" format="string" />
     </declare-styleable>
     <declare-styleable name="NumberView">
         <attr name="units" format="string"/>
@@ -18,7 +17,7 @@
         <attr name="enums" format="string"/>
     </declare-styleable>
     <declare-styleable name="InputNumberMenu">
-        <attr name="initialNum" format="float"/>
+        <attr name="initialNum" format="string"/>
         <attr name="numbers" format="string"/>
     </declare-styleable>
     <declare-styleable name="OutputNumberText">

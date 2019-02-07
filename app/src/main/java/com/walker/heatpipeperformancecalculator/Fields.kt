@@ -3,48 +3,46 @@ package com.walker.heatpipeperformancecalculator
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.view.Menu
 import android.view.View
 import android.widget.*
-import org.mariuszgromada.math.mxparser.Argument
 
 /**
  * Created by walker on 3/16/18.
  */
 
-abstract class NamedView(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
+abstract class NamedView(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs) {
     companion object {
         var updateOutputs = {}
     }
 
     val name: String
     val nameText: TextView
-
     final override fun addView(child: View?) = super.addView(child)
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.NamedView)
-        name = a.getString(R.styleable.NamedView_name) ?: "No Name"
-        nameText = createTextView(context, name)
-        addView(nameText)
+        name = a.getString(R.styleable.NamedView_name) ?: throw NamedViewException(this, "Name not found")
         a.recycle()
+        nameText = createTextView(context, name)
+        nameText.layoutParams = createRelativeLayoutParams(RIGHT_OF, this)
+        addView(nameText)
     }
 }
 
 abstract class NumberView(context: Context, attrs: AttributeSet) : NamedView(context, attrs) {
-    abstract var number: Double
+    abstract val number: Double
     var numberUnits: String
     var unitConverter: UnitConverter
 
     init {
         val a = context.obtainStyledAttributes(R.styleable.NumberView)
         numberUnits = a.getString(R.styleable.NumberView_units) ?: ""
-        val staticConverter = a.getBoolean(R.styleable.NumberView_staticUnits, false)
-        unitConverter = createUnitConverter(numberUnits, staticConverter)
+        val isStaticConverter = a.getBoolean(R.styleable.NumberView_staticUnits, false)
+        unitConverter = createUnitConverter(numberUnits, isStaticConverter)
         a.recycle()
     }
 
-    val convertedUnits get() = unitConverter.toUnits
+    val toUnits get() = unitConverter.toUnits
     val convertedNumber get() = unitConverter.convertTo(number)
 
     fun changeUnit(oldUnit: String, newUnit: String) = unitConverter.changeUnit(oldUnit, newUnit)
@@ -72,32 +70,34 @@ class InputNumberText(context: Context, attrs: AttributeSet) : NumberView(contex
         maxValue = a.getFloat(R.styleable.InputNumberText_max, 0f).toDouble()
         a.recycle()
         unitConverter.onChangeListener = {
-            unitText.text = convertedUnits
+            unitText.text = toUnits
             numberText.setText(convertedNumber.toRoundedString())
         }
     }
 
+    val numberText: EditText = createEditText(context, number.toRoundedString())
     val unitText: TextView = createTextView(context, numberUnits)
 
-    val numberText: EditText = createEditText(context, number.toRoundedString())
-
     init {
-        addView(numberText)
         numberText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or if (minValue < 0.0) InputType.TYPE_NUMBER_FLAG_SIGNED else 0
         numberText.addTextChangedListener(createTextWatcher {
-                var convertedNumber = numberText.text.toString().toDoubleOrNull()
-                if (convertedNumber != null) {
-                    if (convertedNumber < convertedMinValue || convertedMaxValue < convertedNumber) {
-                        convertedNumber = convertedNumber.clamp(convertedMinValue, convertedMaxValue)
-                        numberText.setText(convertedNumber.toString())
-                    }
-                    number = unitConverter.convertFrom(convertedNumber)
-                    updateOutputs()
-                } else {
-                    "Please enter a number".toast(context)
+            var convertedNumber = numberText.text.toString().toDoubleOrNull()
+            if (convertedNumber != null) {
+                if (convertedNumber < convertedMinValue || convertedMaxValue < convertedNumber) {
+                    convertedNumber = convertedNumber.clamp(convertedMinValue, convertedMaxValue)
+                    numberText.setText(convertedNumber.toString())
                 }
+                number = unitConverter.convertFrom(convertedNumber)
+                updateOutputs()
+            } else {
+                "Please enter a number".toast(context)
             }
+        }
         )
+        unitText.layoutParams = createRelativeLayoutParams(RelativeLayout.LEFT_OF, this)
+        addView(unitText)
+        numberText.layoutParams = createRelativeLayoutParams(RelativeLayout.LEFT_OF, unitText)
+        addView(numberText)
     }
 }
 
@@ -106,44 +106,42 @@ interface Output {
 }
 
 class OutputNumberText(context: Context, attrs: AttributeSet) : NumberView(context, attrs), Output {
-    val formula: Double = 0.0
-    override val number
-        get() = formula
+    lateinit var formula: () -> Double
 
-    val numberText = createTextView(context)
+    override val number get() = formula()
 
-    val argument = Argument(name, number)
+//    val equation: String
 
-    val equation: String
     val isImportant: Boolean
-
-    val unitText: TextView = createTextView(context, numberUnits)
 
     init {
         val a = context.obtainStyledAttributes(R.styleable.OutputNumberText)
         isImportant = a.getBoolean(R.styleable.OutputNumberText_important, false)
-        equation = a.getString(R.styleable.OutputNumberText_equation)
+//        equation = a.getString(R.styleable.OutputNumberText_equation)
         a.recycle()
         unitConverter.onChangeListener = {
-            unitText.text = convertedUnits
+            unitText.text = toUnits
             numberText.text = convertedNumber.toFormattedString()
         }
     }
 
-    private lateinit var arguments: List<NumberView>
+    val numberText: TextView
+    val unitText: TextView
 
-    fun setArguments(numberViews: List<NumberView>) {
-        arguments = numberViews.filter { Regex("\\b${it.name}\\b") in equation }
-        arguments.forEach {
-            it.dependencies += this
-        }
+    init {
+        numberText = createTextView(context)
+        unitText = createTextView(context, numberUnits)
+        addView(unitText)
+        unitText.layoutParams = createRelativeLayoutParams(LEFT_OF, this)
+        numberText.layoutParams = createRelativeLayoutParams(LEFT_OF, unitText)
+        addView(numberText)
     }
 
     override fun updateNumberText() {
         numberText.text = number.toFormattedString()
     }
 
-    fun isDependantOn(inputNumber: NumberView) = inputNumber in arguments
+    fun isDependantOn(inputNumber: NumberView) = true//inputNumber.symbol in equation
 }
 
 class InputEnumeration(context: Context, attrs: AttributeSet) : NamedView(context, attrs), Input {
@@ -153,12 +151,16 @@ class InputEnumeration(context: Context, attrs: AttributeSet) : NamedView(contex
 
     init {
         val a = context.obtainStyledAttributes(R.styleable.InputEnumeration)
-        items = a.getString(R.styleable.InputEnumeration_enums).removeWhiteSpace().split(",")
-        val initialSelection = a.getString(R.styleable.InputEnumeration_initialEnum)
+        items = (a.getString(R.styleable.InputEnumeration_enums)
+                ?: throw NamedViewException(this, "Unable to get item list"))
+                .removeWhiteSpace().split(",")
+        val initialSelection = a.getString(R.styleable.InputEnumeration_initialEnum) ?: items[0]
         a.recycle()
         menu = createSpinner(context, items, initialSelection) { _, _ ->
             updateOutputs()
         }
+        menu.layoutParams = createRelativeLayoutParams(LEFT_OF, this)
+        addView(menu)
     }
 
     operator fun invoke() = items[menu.selectedItemPosition]
@@ -166,23 +168,28 @@ class InputEnumeration(context: Context, attrs: AttributeSet) : NamedView(contex
 
 class InputNumberMenu(context: Context, attrs: AttributeSet) : NumberView(context, attrs), Input {
     override var number = 0.0
-    lateinit var items: List<Double>
-        private set
+    val numbers: List<Double>
 
     init {
-        val a = context.obtainStyledAttributes(R.styleable.InputNumberMenu)
-        number = a.getFloat(R.styleable.InputNumberText_initial, 0f).toDouble()
-        items = a.getString(R.styleable.InputNumberMenu_numbers).split(",").map { it.toDouble() }
+        val a = context.obtainStyledAttributes(attrs, R.styleable.InputNumberMenu)
+        number = (a.getString(R.styleable.InputNumberMenu_initialNum)
+                ?: throw NamedViewException(this, "Unable to get number")).toDouble()
+        numbers = (a.getString(R.styleable.InputNumberMenu_numbers)
+                ?: throw NamedViewException(this, "Unable to get number list"))
+                .removeWhiteSpace().split(",").map { it.toDouble() }
         a.recycle()
     }
 
-    val menu = createSpinner(context, items, number) { _, _ ->
-        NamedView.updateOutputs()
-    }
+    val menu: Spinner
 
     init {
+        menu = createSpinner(context, numbers, number) { _, _ ->
+            NamedView.updateOutputs()
+        }
+        menu.layoutParams = createRelativeLayoutParams(LEFT_OF, this)
+        addView(menu)
         unitConverter.onChangeListener = {
-            menu.adapter = ArrayAdapter<String>(context, R.layout.text_view_wrap, items.map { "${unitConverter.convertTo(it).toRoundedString()} ${convertedUnits}" })
+            menu.adapter = ArrayAdapter<String>(context, R.layout.text_view_wrap, numbers.map { "${unitConverter.convertTo(it).toRoundedString()} $toUnits" })
         }
     }
 }
@@ -190,7 +197,7 @@ class InputNumberMenu(context: Context, attrs: AttributeSet) : NumberView(contex
 class UnitMenu(context: Context, attrs: AttributeSet) : NamedView(context, attrs) {
     companion object {
         private val num = "([0-9]+)"
-        private val unit = "(\\s+)"
+        private val unit = "([^0-9]+)"
         val unitRegex = Regex("$num$unit")
         val tempRegex = Regex("$num$unit\\+$num")
     }
@@ -199,16 +206,27 @@ class UnitMenu(context: Context, attrs: AttributeSet) : NamedView(context, attrs
 
     val menu: Spinner
 
+    lateinit var onChangeListener: (String, String) -> Unit
+
     init {
-        val a = context.obtainStyledAttributes(R.styleable.UnitMenu)
-        fun conversions(regex: Regex) = a.getString(R.styleable.UnitMenu_conversions).removeWhiteSpace().split(",").map { regex.find(it)!!.destructured }
-        val baseUnit = a.getString(R.styleable.UnitMenu_base)
+        val a = context.obtainStyledAttributes(attrs, R.styleable.UnitMenu)
+        val baseUnit = a.getString(R.styleable.UnitMenu_base) ?: "No Base"
+
+        fun conversions(regex: Regex) =
+                (a.getString(R.styleable.UnitMenu_conversions)
+                        ?: throw NamedViewException(this, "Conversions not found"))
+                        .removeWhiteSpace()
+                        .split(",")
+                        .map {
+                            (regex.find(it)
+                                    ?: throw NamedViewException(this, "Unable to parse conversion: $it")).destructured
+                        }
+
         menu = createSpinner(context, unitStrings, baseUnit) { oldVal, newVal ->
-            MainActivity.numbers.forEach { field ->
-                field.changeUnit(oldVal, newVal)
-            }
+            onChangeListener(oldVal, newVal)
         }
-        a.recycle()
+        menu.layoutParams = createRelativeLayoutParams(LEFT_OF, this)
+        addView(menu)
         if (name != "Temperature") {
             MultiConverter.setBaseUnit(baseUnit, name)
             conversions(unitRegex).forEach { conversion ->
@@ -224,5 +242,8 @@ class UnitMenu(context: Context, attrs: AttributeSet) : NamedView(context, attrs
                 unitStrings += unit
             }
         }
+        a.recycle()
     }
 }
+
+class NamedViewException(view: NamedView, message: String) : java.lang.Exception("Exception in ${view::class.simpleName} ${view.name}: $message")

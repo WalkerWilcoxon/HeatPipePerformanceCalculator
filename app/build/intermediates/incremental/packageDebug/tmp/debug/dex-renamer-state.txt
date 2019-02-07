@@ -1,4 +1,10 @@
-#Tue Dec 18 00:32:57 CST 2018
-base.0=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Sun Jan 13 15:28:19 CST 2019
+path.2=classes.dex
+path.1=classes.dex
 path.0=classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
+base.2=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\2
+base.1=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.0=F\:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1

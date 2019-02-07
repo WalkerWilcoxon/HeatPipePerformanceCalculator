@@ -18,14 +18,14 @@ abstract class UnitConverter(val fromUnits: String) {
     abstract fun convertFrom(number: Double): Double
 }
 
-class StaticConverter(units: String) : UnitConverter(units) {
-    override var onChangeListener: (() -> Unit)?
-        get() = null
-        set(value) {}
+class StaticConverter(fromUnits: String) : UnitConverter(fromUnits) {
     override fun changeUnit(oldUnit: String, newUnit: String) {}
+
     override fun convertTo(number: Double) = number
+
     override fun convertFrom(number: Double) = number
 }
+
 
 class MultiConverter(fromUnits: String) : UnitConverter(fromUnits) {
     private val unitConversions = ArrayList<UnitConversion>()
@@ -68,31 +68,31 @@ class MultiConverter(fromUnits: String) : UnitConverter(fromUnits) {
     }
 
     companion object Factors {
-        private val factors = NonNullMap<String, NonNullMap<String, Double>>()
+        private val factors = mutableMapOf<String, MutableMap<String?, Double>>()
 
-        private val typeToBaseMap = NonNullMap<String, String>()
+        private val typeToBaseMap = mutableMapOf<String, String>()
 
-        private val unitToBaseMap = NonNullMap<String, String>()
+        private val unitToBaseMap = mutableMapOf<String, String>().withDefault { "" }
 
         fun setBaseUnit(baseUnit: String, type: String) {
             typeToBaseMap[type] = baseUnit
-            factors[baseUnit] = NonNullMap()
+            factors[baseUnit] = mutableMapOf()
         }
 
         fun addFactor(factor: Double, unit: String, type: String) {
-            val baseUnit = typeToBaseMap[type]
-            factors[baseUnit][unit] = factor
+            val baseUnit = typeToBaseMap[type]!!
+            factors[baseUnit]!![unit] = factor
             unitToBaseMap[unit] = baseUnit
         }
 
         operator fun get(fromUnit: String, toUnit: String): Double {
             val baseUnit = unitToBaseMap[fromUnit]
-            val factors = factors[baseUnit]
+            val factors = factors[baseUnit]!!
             return when {
                 fromUnit == toUnit -> 1.0
-                fromUnit == baseUnit -> factors[toUnit]
-                toUnit == baseUnit -> 1 / factors[fromUnit]
-                else -> factors[toUnit] / factors[fromUnit]
+                fromUnit == baseUnit -> factors[toUnit]!!
+                toUnit == baseUnit -> 1 / factors[fromUnit]!!
+                else -> factors[toUnit]!! / factors[fromUnit]!!
             }
         }
     }
@@ -102,7 +102,7 @@ class TemperatureConverter(fromUnits: String) : UnitConverter(fromUnits) {
     private var formula = unitFormula
 
     override fun changeUnit(oldUnit: String, newUnit: String) {
-        toUnits = toUnits.replace(oldUnit, newUnit)
+        toUnits = newUnit
         formula = Formulas[fromUnits, toUnits]
     }
 
@@ -128,7 +128,7 @@ class TemperatureConverter(fromUnits: String) : UnitConverter(fromUnits) {
         }
 
         class Formula(val factor: Double, val adder: Double, inverse: Formula? = null) {
-            val inverse = inverse ?: Formula(1 / factor, -adder / factor, this)
+            val inverse: Formula = inverse ?: Formula(1 / factor, -adder / factor, this)
             operator fun invoke(number: Double) = number * factor + adder
             operator fun invoke(formula: Formula) = Formula(factor * formula.factor, adder + factor * formula.adder)
         }

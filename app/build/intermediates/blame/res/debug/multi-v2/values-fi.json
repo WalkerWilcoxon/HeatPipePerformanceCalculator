@@ -4,17 +4,7 @@
             "outputFile": "F:\\.Important\\AndroidStudio\\Apps\\HeatPipePerformanceCalculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fi\\values-fi.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7e4a01cb1a26d81a3d57939375f2a680\\res\\values-fi\\values-fi.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,213,313,414,500,605,723,810,892,972,1079,1182,1279,1385,1484,1588,1751,1850",
-                        "endColumns": "107,99,100,85,104,117,86,81,79,106,102,96,105,98,103,162,98,79",
-                        "endOffsets": "208,308,409,495,600,718,805,887,967,1074,1177,1274,1380,1479,1583,1746,1845,1925"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\806bdb1576070b77fce90d9fe373b096\\res\\values-fi\\values-fi.xml",
+                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\031d4095cba180a63222c309737c6369\\res\\values-fi\\values-fi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -28,6 +18,16 @@
                         "startOffsets": "1930",
                         "endColumns": "100",
                         "endOffsets": "2026"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Walker\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4c3d43c3e52a13412fd62828585381a9\\res\\values-fi\\values-fi.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,213,313,414,500,605,723,810,892,972,1079,1182,1279,1385,1484,1588,1751,1850",
+                        "endColumns": "107,99,100,85,104,117,86,81,79,106,102,96,105,98,103,162,98,79",
+                        "endOffsets": "208,308,409,495,600,718,805,887,967,1074,1177,1274,1380,1479,1583,1746,1845,1925"
                     }
                 }
             ]

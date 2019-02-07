@@ -450,9 +450,19 @@
         </attr><attr format="reference" name="font"/><attr format="integer" name="fontWeight"/><attr name="android:fontStyle"/><attr name="android:font"/><attr name="android:fontWeight"/></declare-styleable>
     <declare-styleable name="ForegroundLinearLayout"><attr name="android:foreground"/><attr name="android:foregroundGravity"/><attr format="boolean" name="foregroundInsidePadding"/></declare-styleable>
     <declare-styleable name="GraphViewXML"><attr format="string" name="seriesData"/><attr format="string" name="seriesType"/><attr format="string" name="seriesTitle"/><attr name="android:title"/><attr format="color" name="seriesColor"/></declare-styleable>
-    <declare-styleable name="InputEnumeration"><attr format="string" name="initialEnum"/><attr format="string" name="enums"/></declare-styleable>
-    <declare-styleable name="InputNumberMenu"><attr format="float" name="initialNum"/><attr format="string" name="numbers"/></declare-styleable>
-    <declare-styleable name="InputNumberText"><attr format="float" name="initial"/><attr format="float" name="min"/><attr format="float" name="max"/></declare-styleable>
+    <declare-styleable name="InputEnumeration">
+        <attr format="string" name="initialEnum"/>
+        <attr format="string" name="enums"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberMenu">
+        <attr format="string" name="initialNum"/>
+        <attr format="string" name="numbers"/>
+    </declare-styleable>
+    <declare-styleable name="InputNumberText">
+        <attr format="float" name="initial"/>
+        <attr format="float" name="min"/>
+        <attr format="float" name="max"/>
+    </declare-styleable>
     <declare-styleable name="LinearConstraintLayout"><attr name="android:orientation"/></declare-styleable>
     <declare-styleable name="LinearLayoutCompat"><attr name="android:orientation"/><attr name="android:gravity"/><attr name="android:baselineAligned"/><attr name="android:baselineAlignedChildIndex"/><attr name="android:weightSum"/><attr format="boolean" name="measureWithLargestChild"/><attr name="divider"/><attr name="showDividers">
             <flag name="none" value="0"/>
@@ -503,10 +513,18 @@
             <enum name="add" value="16"/>
         </attr></declare-styleable>
     <declare-styleable name="MenuView"><attr name="android:itemTextAppearance"/><attr name="android:horizontalDivider"/><attr name="android:verticalDivider"/><attr name="android:headerBackground"/><attr name="android:itemBackground"/><attr name="android:windowAnimationStyle"/><attr name="android:itemIconDisabledAlpha"/><attr format="boolean" name="preserveIconSpacing"/><attr format="reference" name="subMenuArrow"/></declare-styleable>
-    <declare-styleable name="NamedView"><attr format="string" name="name"/><attr format="string" name="symbol"/></declare-styleable>
+    <declare-styleable name="NamedView">
+        <attr format="string" name="name"/>
+    </declare-styleable>
     <declare-styleable name="NavigationView"><attr name="android:background"/><attr name="android:fitsSystemWindows"/><attr name="android:maxWidth"/><attr name="elevation"/><attr format="reference" name="menu"/><attr format="color" name="itemIconTint"/><attr format="color" name="itemTextColor"/><attr format="reference" name="itemBackground"/><attr format="reference" name="itemTextAppearance"/><attr format="reference" name="headerLayout"/></declare-styleable>
-    <declare-styleable name="NumberView"><attr format="string" name="units"/><attr format="boolean" name="staticUnits"/></declare-styleable>
-    <declare-styleable name="OutputNumberText"><attr format="string" name="equation"/><attr format="boolean" name="important"/></declare-styleable>
+    <declare-styleable name="NumberView">
+        <attr format="string" name="units"/>
+        <attr format="boolean" name="staticUnits"/>
+    </declare-styleable>
+    <declare-styleable name="OutputNumberText">
+        <attr format="string" name="equation"/>
+        <attr format="boolean" name="important"/>
+    </declare-styleable>
     <declare-styleable name="PopupWindow"><attr format="boolean" name="overlapAnchor"/><attr name="android:popupBackground"/><attr name="android:popupAnimationStyle"/></declare-styleable>
     <declare-styleable name="PopupWindowBackgroundState"><attr format="boolean" name="state_above_anchor"/></declare-styleable>
     <declare-styleable name="RecycleListView"><attr format="dimension" name="paddingBottomNoButtons"/><attr format="dimension" name="paddingTopNoTitle"/></declare-styleable>
@@ -570,7 +588,10 @@
             
             <flag name="bottom" value="0x50"/>
         </attr><attr format="reference" name="collapseIcon"/><attr format="string" name="collapseContentDescription"/><attr name="popupTheme"/><attr format="reference" name="navigationIcon"/><attr format="string" name="navigationContentDescription"/><attr name="logo"/><attr format="string" name="logoDescription"/><attr format="color" name="titleTextColor"/><attr format="color" name="subtitleTextColor"/><attr name="android:minHeight"/></declare-styleable>
-    <declare-styleable name="UnitMenu"><attr format="string" name="base"/><attr format="string" name="conversions"/></declare-styleable>
+    <declare-styleable name="UnitMenu">
+        <attr format="string" name="base"/>
+        <attr format="string" name="conversions"/>
+    </declare-styleable>
     <declare-styleable name="View"><attr format="dimension" name="paddingStart"/><attr format="dimension" name="paddingEnd"/><attr name="android:focusable"/><attr format="reference" name="theme"/><attr name="android:theme"/></declare-styleable>
     <declare-styleable name="ViewBackgroundHelper"><attr name="android:background"/><attr format="color" name="backgroundTint"/><attr name="backgroundTintMode">
             
@@ -735,7 +756,6 @@
     <dimen name="notification_subtext_size">13sp</dimen>
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
-    <dimen name="spinner_left_margin">10dp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -815,12 +835,9 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with <ns1:g example="Mail" id="application_name">%s</ns1:g></string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="action_graphs">Graphs</string>
-    <string name="action_input_output">Calculator</string>
     <string name="app_name">Heat Pipe Performance Calculator</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
-    <string name="button_calc">Calculate</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="password_toggle_content_description">Toggle password visibility</string>
     <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>

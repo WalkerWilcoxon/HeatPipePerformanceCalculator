@@ -1,22 +1,16 @@
 package com.walker.heatpipeperformancecalculator
 
-import android.content.Context
-import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
+import android.content.*
+import android.graphics.*
+import android.text.*
+import android.view.*
 import android.widget.*
 import com.walker.heatpipeperformancecalculator.Globals.formatter
 import com.walker.heatpipeperformancecalculator.Globals.mathContext
 import com.walker.heatpipeperformancecalculator.Globals.whiteSpace
-import java.math.BigDecimal
-import java.math.MathContext
-import java.text.DecimalFormat
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
+import java.math.*
+import java.text.*
+import kotlin.math.*
 
 object Globals {
     val sigFigs = 3
@@ -37,7 +31,7 @@ enum class Tags {
     Error
 }
 
-fun Any.Log(tag: Tags) {
+fun Any.log(tag: Tags) {
     android.util.Log.i(tag.name, "\n $this")
 }
 
@@ -65,19 +59,18 @@ fun <T> Spinner.init(items: List<T>, onSelect: (view: View?, position: Int) -> U
     onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(view: AdapterView<*>?) {}
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                onSelect(view, position)
+            onSelect(view, position)
         }
     }
 }
 
-fun createUnitConverter(units: String, static: Boolean): UnitConverter {
-    return if (!units.isEmpty() && static)
-        if (units in TemperatureConverter.allUnits)
-            TemperatureConverter(units)
-        else
-            MultiConverter(units)
-    else StaticConverter(units)
-}
+fun createUnitConverter(units: String, static: Boolean) =
+        if (!units.isEmpty() && static) {
+            if (units in TemperatureConverter.allUnits)
+                TemperatureConverter(units)
+            else
+                MultiConverter(units)
+        } else StaticConverter(units)
 
 fun createTextView(context: Context, text: String = "", size: Float = 15f) =
         TextView(context).apply {
@@ -105,14 +98,9 @@ fun createTextWatcher(callback: () -> Unit): TextWatcher {
     }
 }
 
-fun createLinearLayout(context: Context, first: View, second: View) =
-        LinearLayout(context).apply {
-            orientation = LinearLayout.HORIZONTAL
-            with(second) {
-                setPadding(left + 10, top, right, bottom)
-            }
-            addView(first)
-            addView(second)
+fun createRelativeLayoutParams(position: Int, view: View) =
+        RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+            addRule(position, view.id)
         }
 
 fun <T> createSpinner(context: Context, items: List<T>, initialSelection: T, onSelect: (oldVal: T, newVal: T) -> Unit) =
@@ -135,10 +123,6 @@ fun <T> createSpinner(context: Context, items: List<T>, initialSelection: T, onS
 inline fun <reified T : View> ViewGroup.getAllChildren() = List(childCount) { getChildAt(it) as T }
 
 fun String.removeWhiteSpace() = replace(whiteSpace, "")
-
-class NonNullMap<T, K>() : MutableMap<T, K> by mutableMapOf() {
-    override fun get(key: T) = getValue(key)
-}
 
 class Range(val min: Double, val max: Double) {
     fun mapTo(num: Double, start: Double, end: Double): Double {
